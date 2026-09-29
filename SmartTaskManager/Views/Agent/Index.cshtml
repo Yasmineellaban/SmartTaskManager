@@ -1,0 +1,595 @@
+﻿@{
+    ViewData["Title"] = "AI Agent";
+}
+
+<div class="page-header">
+    <div>
+        <span class="page-eyebrow">INTELLIGENCE</span>
+        <h1 class="page-title">AI Agent</h1>
+        <p class="page-subtitle">
+            Let your AI agent understand requests and take action in your workspace.
+        </p>
+    </div>
+
+    <div class="agent-status">
+        <span class="status-dot"></span>
+        Agent Online
+    </div>
+</div>
+
+<div class="agent-layout">
+
+    <div class="agent-main-card">
+
+        <div class="agent-card-header">
+
+            <div class="agent-avatar">
+                <i class="bi bi-stars"></i>
+            </div>
+
+            <div>
+                <h2>Task Management Agent</h2>
+                <p>
+                    Ask the agent to work with your tasks and categories.
+                </p>
+            </div>
+
+        </div>
+
+        <div class="agent-prompt-area">
+
+            <label for="prompt">
+                Your Request
+            </label>
+
+            <form id="agentForm">
+
+                @Html.AntiForgeryToken()
+
+                <textarea id="prompt"
+                          name="prompt"
+                          rows="6"
+                          placeholder="Try: Create a high priority task called Study C# in DEPI tomorrow..."></textarea>
+
+                <div class="prompt-footer">
+
+                    <span class="prompt-hint">
+                        <i class="bi bi-lightning-charge"></i>
+                        The agent can use available tools to complete your request.
+                    </span>
+
+                    <button type="submit"
+                            id="testButton"
+                            class="btn btn-primary">
+                        <i class="bi bi-stars"></i>
+                        Run Agent
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+        <div class="agent-result-section">
+
+            <div class="result-header">
+
+                <div>
+                    <span class="result-label">AGENT RESPONSE</span>
+                    <h3>Result</h3>
+                </div>
+
+                <div class="result-indicator">
+                    <span></span>
+                    Ready
+                </div>
+
+            </div>
+
+            <div id="result"
+                 class="agent-result">
+
+                <div class="result-empty">
+
+                    <div class="result-empty-icon">
+                        <i class="bi bi-chat-square-text"></i>
+                    </div>
+
+                    <h4>Waiting for your request</h4>
+
+                    <p>
+                        Your agent's response will appear here.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="agent-side-card">
+
+        <div class="side-icon">
+            <i class="bi bi-cpu"></i>
+        </div>
+
+        <span class="side-label">AGENT CAPABILITIES</span>
+
+        <h3>Built to take action.</h3>
+
+        <p>
+            The agent can understand your request and interact with
+            your task management system through available tools.
+        </p>
+
+        <div class="capability-list">
+
+            <div class="capability-item">
+                <div class="capability-icon">
+                    <i class="bi bi-folder2-open"></i>
+                </div>
+
+                <div>
+                    <strong>Categories</strong>
+                    <span>Find your available categories</span>
+                </div>
+            </div>
+
+            <div class="capability-item">
+                <div class="capability-icon">
+                    <i class="bi bi-plus-square"></i>
+                </div>
+
+                <div>
+                    <strong>Create Tasks</strong>
+                    <span>Create tasks using your request</span>
+                </div>
+            </div>
+
+            <div class="capability-item">
+                <div class="capability-icon">
+                    <i class="bi bi-arrow-repeat"></i>
+                </div>
+
+                <div>
+                    <strong>Multi-step Actions</strong>
+                    <span>Use tools in the correct sequence</span>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<style>
+    .agent-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 310px;
+        gap: 24px;
+        align-items: start;
+    }
+
+    .agent-main-card,
+    .agent-side-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-xl);
+        box-shadow: var(--shadow-md);
+    }
+
+    .agent-main-card {
+        overflow: hidden;
+    }
+
+    .agent-card-header {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 25px 28px;
+        border-bottom: 1px solid var(--border);
+        background: linear-gradient(
+            135deg,
+            var(--surface) 0%,
+            var(--green-50) 100%
+        );
+    }
+
+    .agent-avatar {
+        width: 48px;
+        height: 48px;
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--green-700);
+        color: #fff;
+        font-size: 21px;
+        box-shadow: 0 8px 20px rgba(8, 112, 77, 0.18);
+    }
+
+    .agent-card-header h2 {
+        margin: 0 0 4px;
+        color: var(--text-main);
+        font-size: 18px;
+        font-weight: 700;
+    }
+
+    .agent-card-header p {
+        margin: 0;
+        color: var(--text-muted);
+        font-size: 12px;
+    }
+
+    .agent-prompt-area {
+        padding: 28px;
+    }
+
+    .agent-prompt-area label {
+        display: block;
+        margin-bottom: 9px;
+        color: var(--text-main);
+        font-size: 12px;
+        font-weight: 650;
+    }
+
+    #prompt {
+        width: 100%;
+        min-height: 150px;
+        padding: 15px;
+        resize: vertical;
+        border: 1px solid var(--border);
+        border-radius: 15px;
+        background: var(--surface-soft);
+        color: var(--text-main);
+        font-size: 13px;
+        line-height: 1.6;
+        transition: var(--transition);
+    }
+
+    #prompt::placeholder {
+        color: #9aaba3;
+    }
+
+    #prompt:focus {
+        outline: none;
+        border-color: var(--green-400);
+        background: var(--surface);
+        box-shadow: 0 0 0 4px rgba(32, 184, 122, 0.10);
+    }
+
+    .prompt-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 15px;
+        margin-top: 14px;
+    }
+
+    .prompt-hint {
+        color: var(--text-muted);
+        font-size: 10px;
+    }
+
+    .prompt-hint i {
+        margin-right: 4px;
+        color: var(--green-600);
+    }
+
+    .agent-result-section {
+        padding: 0 28px 28px;
+    }
+
+    .result-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 10px;
+    }
+
+    .result-label {
+        display: block;
+        margin-bottom: 3px;
+        color: var(--green-700);
+        font-size: 9px;
+        font-weight: 800;
+        letter-spacing: 1.3px;
+    }
+
+    .result-header h3 {
+        margin: 0;
+        color: var(--text-main);
+        font-size: 16px;
+        font-weight: 700;
+    }
+
+    .result-indicator {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        color: var(--text-muted);
+        font-size: 10px;
+    }
+
+    .result-indicator span {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--green-500);
+        box-shadow: 0 0 0 4px var(--green-100);
+    }
+
+    .agent-result {
+        min-height: 190px;
+        max-height: 500px;
+        overflow-y: auto;
+        padding: 20px;
+        border: 1px solid var(--border);
+        border-radius: 15px;
+        background: var(--surface-soft);
+        color: var(--text-main);
+        font-size: 13px;
+        line-height: 1.7;
+    }
+
+    .result-empty {
+        min-height: 145px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .result-empty-icon {
+        width: 45px;
+        height: 45px;
+        margin-bottom: 12px;
+        border-radius: 13px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--green-100);
+        color: var(--green-700);
+        font-size: 18px;
+    }
+
+    .result-empty h4 {
+        margin: 0 0 5px;
+        color: var(--text-main);
+        font-size: 14px;
+        font-weight: 700;
+    }
+
+    .result-empty p {
+        margin: 0;
+        color: var(--text-muted);
+        font-size: 11px;
+    }
+
+    .agent-result h1,
+    .agent-result h2,
+    .agent-result h3,
+    .agent-result h4 {
+        color: var(--text-main);
+    }
+
+    .agent-result code {
+        padding: 2px 5px;
+        border-radius: 5px;
+        background: var(--green-100);
+        color: var(--green-800);
+        font-size: 11px;
+    }
+
+    .agent-result pre {
+        padding: 14px;
+        overflow-x: auto;
+        border-radius: 10px;
+        background: #0b3025;
+        color: #e7faf1;
+    }
+
+    .agent-result pre code {
+        padding: 0;
+        background: transparent;
+        color: inherit;
+    }
+
+    .agent-status {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        padding: 7px 11px;
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        background: var(--surface);
+        color: var(--green-700);
+        font-size: 10px;
+        font-weight: 700;
+        box-shadow: var(--shadow-sm);
+    }
+
+    .status-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--green-500);
+        box-shadow: 0 0 0 4px var(--green-100);
+    }
+
+    .agent-side-card {
+        padding: 25px;
+    }
+
+    .side-icon {
+        width: 46px;
+        height: 46px;
+        margin-bottom: 18px;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--green-100);
+        color: var(--green-700);
+        font-size: 20px;
+    }
+
+    .side-label {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--green-700);
+        font-size: 9px;
+        font-weight: 800;
+        letter-spacing: 1.4px;
+    }
+
+    .agent-side-card h3 {
+        margin: 0 0 10px;
+        color: var(--text-main);
+        font-size: 19px;
+        font-weight: 700;
+    }
+
+    .agent-side-card > p {
+        margin: 0 0 22px;
+        color: var(--text-muted);
+        font-size: 11px;
+        line-height: 1.7;
+    }
+
+    .capability-list {
+        display: flex;
+        flex-direction: column;
+        border-top: 1px solid var(--border);
+    }
+
+    .capability-item {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        padding: 14px 0;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .capability-icon {
+        width: 34px;
+        height: 34px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--green-50);
+        color: var(--green-700);
+        font-size: 14px;
+        flex-shrink: 0;
+    }
+
+    .capability-item strong,
+    .capability-item span {
+        display: block;
+    }
+
+    .capability-item strong {
+        margin-bottom: 2px;
+        color: var(--text-main);
+        font-size: 11px;
+    }
+
+    .capability-item span {
+        color: var(--text-muted);
+        font-size: 9px;
+        line-height: 1.4;
+    }
+
+    @@media (max-width: 991px) {
+        .agent-layout {
+            grid-template-columns: 1fr;
+        }
+
+        .agent-side-card {
+            display: none;
+        }
+    }
+
+    @@media (max-width: 767px) {
+        .agent-card-header,
+        .agent-prompt-area {
+            padding: 22px;
+        }
+
+        .agent-result-section {
+            padding: 0 22px 22px;
+        }
+
+        .prompt-footer {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .prompt-footer .btn {
+            width: 100%;
+        }
+
+        .agent-status {
+            display: none;
+        }
+    }
+</style>
+
+<script>
+    const form = document.getElementById("agentForm");
+    const promptInput = document.getElementById("prompt");
+    const resultBox = document.getElementById("result");
+    const button = document.getElementById("testButton");
+
+    form.addEventListener("submit", async function (event) {
+        event.preventDefault();
+
+        const prompt = promptInput.value.trim();
+
+        if (!prompt) {
+            return;
+        }
+
+        resultBox.innerHTML = `
+            <div class="result-empty">
+                <div class="result-empty-icon">
+                    <i class="bi bi-stars"></i>
+                </div>
+                <h4>Agent is thinking...</h4>
+                <p>Processing your request and selecting the right tools.</p>
+            </div>
+        `;
+
+        button.disabled = true;
+
+        const formData = new FormData(form);
+
+        try {
+            const response = await fetch(
+                "/Agent/RunAgent",
+                {
+                    method: "POST",
+                    body: formData
+                });
+
+            const result = await response.text();
+
+            resultBox.innerHTML = marked.parse(result);
+        }
+        catch (error) {
+            resultBox.textContent =
+                "Something went wrong.";
+        }
+        finally {
+            button.disabled = false;
+        }
+    });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>

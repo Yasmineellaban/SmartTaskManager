@@ -1,0 +1,1273 @@
+﻿@{
+ViewData["Title"] = "SmartTask Manager";
+}
+
+<div class="landing-page">
+
+<section class="hero-section">
+
+    <div class="hero-content">
+
+        <div class="hero-badge">
+            <span class="status-dot"></span>
+            AI-Powered Productivity
+        </div>
+
+        <h1>
+            Turn your tasks
+            <span>into progress.</span>
+        </h1>
+
+        <p class="hero-description">
+            Organize your work, manage priorities, track deadlines,
+            and work smarter with an AI-powered task management experience.
+        </p>
+
+        <div class="hero-actions">
+
+            <a asp-area="Identity"
+               asp-page="/Account/Register"
+               class="landing-btn landing-btn-primary">
+                Get Started
+                <i class="bi bi-arrow-right"></i>
+            </a>
+
+            <a asp-area="Identity"
+               asp-page="/Account/Login"
+               class="landing-btn landing-btn-secondary">
+                Sign In
+            </a>
+
+        </div>
+
+        <div class="hero-note">
+            <i class="bi bi-shield-check"></i>
+            Secure account management with ASP.NET Core Identity
+        </div>
+
+    </div>
+
+
+    <div class="dashboard-preview">
+
+        <div class="preview-glow"></div>
+
+        <div class="preview-window">
+
+            <div class="preview-topbar">
+
+                <div class="preview-brand">
+                    <div class="preview-logo">
+                        <i class="bi bi-check2"></i>
+                    </div>
+
+                    <span>SmartTask</span>
+                </div>
+
+                <div class="preview-status">
+                    <span></span>
+                    AI Ready
+                </div>
+
+            </div>
+
+
+            <div class="preview-content">
+
+                <div class="preview-header">
+
+                    <div>
+                        <span class="preview-eyebrow">
+                            OVERVIEW
+                        </span>
+
+                        <h3>Good morning</h3>
+                    </div>
+
+                    <div class="preview-avatar">
+                        Y
+                    </div>
+
+                </div>
+
+
+                <div class="preview-stats">
+
+                    <div class="preview-stat">
+                        <span>Total Tasks</span>
+                        <strong>24</strong>
+                    </div>
+
+                    <div class="preview-stat">
+                        <span>Completed</span>
+                        <strong>18</strong>
+                    </div>
+
+                    <div class="preview-stat">
+                        <span>Progress</span>
+                        <strong>75%</strong>
+                    </div>
+
+                </div>
+
+
+                <div class="preview-progress">
+
+                    <div class="preview-progress-head">
+                        <span>Completion Overview</span>
+                        <strong>75%</strong>
+                    </div>
+
+                    <div class="progress-track">
+                        <div class="progress-value"></div>
+                    </div>
+
+                </div>
+
+
+                <div class="preview-tasks">
+
+                    <div class="preview-task completed-task">
+
+                        <div class="task-check">
+                            <i class="bi bi-check"></i>
+                        </div>
+
+                        <div class="task-info">
+                            <strong>Complete project documentation</strong>
+                            <span>Completed</span>
+                        </div>
+
+                        <i class="bi bi-check-circle-fill task-success"></i>
+
+                    </div>
+
+
+                    <div class="preview-task">
+
+                        <div class="task-check"></div>
+
+                        <div class="task-info">
+                            <strong>Review development tasks</strong>
+                            <span>High Priority</span>
+                        </div>
+
+                        <i class="bi bi-chevron-right task-arrow"></i>
+
+                    </div>
+
+
+                    <div class="preview-task">
+
+                        <div class="task-check"></div>
+
+                        <div class="task-info">
+                            <strong>Prepare weekly plan</strong>
+                            <span>Tomorrow</span>
+                        </div>
+
+                        <i class="bi bi-chevron-right task-arrow"></i>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="ai-floating-card">
+
+            <div class="ai-floating-icon">
+                <i class="bi bi-stars"></i>
+            </div>
+
+            <div>
+                <strong>AI Assistant</strong>
+                <span>Ready to help</span>
+            </div>
+
+            <span class="ai-online-dot"></span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="features-section">
+
+    <div class="section-intro">
+
+        <span class="section-eyebrow">
+            BUILT FOR PRODUCTIVITY
+        </span>
+
+        <h2>
+            Everything you need to
+            <span>stay organized.</span>
+        </h2>
+
+        <p>
+            A focused workspace that brings task management
+            and AI-powered productivity together.
+        </p>
+
+    </div>
+
+
+    <div class="feature-grid">
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                <i class="bi bi-check2-square"></i>
+            </div>
+
+            <div>
+                <h3>Task Management</h3>
+
+                <p>
+                    Create, organize, prioritize, and track
+                    your tasks from one focused workspace.
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="feature-card feature-card-ai">
+
+            <div class="feature-icon">
+                <i class="bi bi-stars"></i>
+            </div>
+
+            <div>
+                <h3>AI Assistant</h3>
+
+                <p>
+                    Ask questions and get intelligent,
+                    real-time assistance while you work.
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                <i class="bi bi-robot"></i>
+            </div>
+
+            <div>
+                <h3>AI Agent</h3>
+
+                <p>
+                    Let AI interact with your workspace
+                    and perform task management actions.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="workflow-section">
+
+    <div class="workflow-card">
+
+        <div class="workflow-content">
+
+            <span class="section-eyebrow">
+                SMART WORKFLOW
+            </span>
+
+            <h2>
+                From idea to
+                <span>done.</span>
+            </h2>
+
+            <p>
+                Keep everything organized and move through
+                your work with a simple, focused workflow.
+            </p>
+
+        </div>
+
+
+        <div class="workflow-steps">
+
+            <div class="workflow-step">
+
+                <div class="step-number">
+                    01
+                </div>
+
+                <div>
+                    <strong>Organize</strong>
+                    <span>Capture your tasks</span>
+                </div>
+
+            </div>
+
+
+            <div class="workflow-line"></div>
+
+
+            <div class="workflow-step">
+
+                <div class="step-number">
+                    02
+                </div>
+
+                <div>
+                    <strong>Prioritize</strong>
+                    <span>Focus on what matters</span>
+                </div>
+
+            </div>
+
+
+            <div class="workflow-line"></div>
+
+
+            <div class="workflow-step">
+
+                <div class="step-number">
+                    03
+                </div>
+
+                <div>
+                    <strong>Complete</strong>
+                    <span>Turn plans into progress</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="final-cta">
+
+    <div class="cta-glow"></div>
+
+    <div class="cta-content">
+
+        <div class="cta-icon">
+            <i class="bi bi-stars"></i>
+        </div>
+
+        <span class="section-eyebrow">
+            YOUR WORKSPACE AWAITS
+        </span>
+
+        <h2>
+            Ready to work
+            <span>smarter?</span>
+        </h2>
+
+        <p>
+            Create your workspace and start turning
+            your tasks into progress.
+        </p>
+
+        <a asp-area="Identity"
+           asp-page="/Account/Register"
+           class="landing-btn landing-btn-white">
+            Create Your Account
+            <i class="bi bi-arrow-right"></i>
+        </a>
+
+    </div>
+
+</section>
+
+
+</div>
+
+<style>
+
+    .landing-page {
+        min-height: calc(100vh - 80px);
+        margin: -10px -4px 0;
+    }
+
+    .hero-section {
+        position: relative;
+        display: grid;
+        grid-template-columns: minmax(0, 0.9fr) minmax(460px, 1.1fr);
+        align-items: center;
+        gap: 55px;
+        min-height: 650px;
+        padding: 55px 25px 70px;
+        overflow: hidden;
+    }
+
+    .hero-section::before {
+        content: "";
+        position: absolute;
+        width: 520px;
+        height: 520px;
+        top: -220px;
+        left: -180px;
+        border-radius: 50%;
+        background: rgba(82, 214, 156, 0.10);
+        filter: blur(70px);
+        pointer-events: none;
+    }
+
+    .hero-section::after {
+        content: "";
+        position: absolute;
+        width: 480px;
+        height: 480px;
+        right: -180px;
+        bottom: -240px;
+        border-radius: 50%;
+        background: rgba(32, 184, 122, 0.08);
+        filter: blur(70px);
+        pointer-events: none;
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 2;
+        max-width: 570px;
+    }
+
+    .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 13px;
+        margin-bottom: 22px;
+        border: 1px solid rgba(18, 166, 111, 0.15);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.78);
+        color: var(--green-700);
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.07em;
+        box-shadow: var(--shadow-sm);
+        backdrop-filter: blur(12px);
+    }
+
+    .status-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--green-500);
+        box-shadow: 0 0 0 4px rgba(32, 184, 122, 0.10);
+    }
+
+    .hero-content h1 {
+        margin: 0;
+        color: var(--green-950);
+        font-size: clamp(42px, 5vw, 68px);
+        line-height: 1.03;
+        letter-spacing: -0.045em;
+        font-weight: 800;
+    }
+
+    .hero-content h1 span {
+        display: block;
+        color: var(--green-600);
+    }
+
+    .hero-description {
+        max-width: 500px;
+        margin: 24px 0 30px;
+        color: var(--text-muted);
+        font-size: 15px;
+        line-height: 1.8;
+    }
+
+    .hero-actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
+    .landing-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
+        min-height: 46px;
+        padding: 0 19px;
+        border-radius: 12px;
+        font-size: 12px;
+        font-weight: 700;
+        text-decoration: none;
+        transition: var(--transition);
+    }
+
+    .landing-btn-primary {
+        background: var(--green-700);
+        color: #fff;
+        box-shadow: 0 9px 24px rgba(8, 112, 77, 0.22);
+    }
+
+    .landing-btn-primary:hover {
+        color: #fff;
+        background: var(--green-800);
+        transform: translateY(-2px);
+        box-shadow: 0 13px 30px rgba(8, 112, 77, 0.28);
+    }
+
+    .landing-btn-secondary {
+        background: rgba(255, 255, 255, 0.78);
+        border: 1px solid var(--border);
+        color: var(--green-800);
+        box-shadow: var(--shadow-sm);
+    }
+
+    .landing-btn-secondary:hover {
+        color: var(--green-800);
+        background: #fff;
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+    }
+
+    .hero-note {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        margin-top: 18px;
+        color: var(--text-muted);
+        font-size: 10px;
+    }
+
+    .hero-note i {
+        color: var(--green-600);
+        font-size: 14px;
+    }
+
+    .dashboard-preview {
+        position: relative;
+        z-index: 2;
+        min-width: 0;
+        padding: 35px 18px 35px 0;
+    }
+
+    .preview-glow {
+        position: absolute;
+        width: 340px;
+        height: 340px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        background: rgba(32, 184, 122, 0.15);
+        filter: blur(65px);
+    }
+
+    .preview-window {
+        position: relative;
+        overflow: hidden;
+        border: 1px solid rgba(12, 91, 62, 0.10);
+        border-radius: 25px;
+        background: rgba(255, 255, 255, 0.92);
+        box-shadow: 0 30px 80px rgba(5, 72, 48, 0.15);
+        backdrop-filter: blur(18px);
+        transform: perspective(1200px) rotateY(-4deg) rotateX(2deg);
+        transition: var(--transition);
+    }
+
+    .preview-window:hover {
+        transform: perspective(1200px) rotateY(0) rotateX(0) translateY(-4px);
+    }
+
+    .preview-topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 16px 19px;
+        border-bottom: 1px solid var(--border);
+        background: rgba(248, 252, 250, 0.85);
+    }
+
+    .preview-brand {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        color: var(--green-950);
+        font-size: 12px;
+        font-weight: 800;
+    }
+
+    .preview-logo {
+        width: 27px;
+        height: 27px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+        background: var(--green-700);
+        color: white;
+        font-size: 13px;
+    }
+
+    .preview-status {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        color: var(--green-700);
+        font-size: 9px;
+        font-weight: 700;
+    }
+
+    .preview-status span {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--green-500);
+    }
+
+    .preview-content {
+        padding: 24px;
+    }
+
+    .preview-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 21px;
+    }
+
+    .preview-eyebrow {
+        display: block;
+        margin-bottom: 5px;
+        color: var(--green-600);
+        font-size: 8px;
+        font-weight: 800;
+        letter-spacing: 0.13em;
+    }
+
+    .preview-header h3 {
+        margin: 0;
+        color: var(--text-main);
+        font-size: 19px;
+        font-weight: 800;
+    }
+
+    .preview-avatar {
+        width: 35px;
+        height: 35px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 11px;
+        background: var(--green-100);
+        color: var(--green-700);
+        font-size: 11px;
+        font-weight: 800;
+    }
+
+    .preview-stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin-bottom: 15px;
+    }
+
+    .preview-stat {
+        padding: 13px;
+        border: 1px solid var(--border);
+        border-radius: 13px;
+        background: var(--surface-soft);
+    }
+
+    .preview-stat span {
+        display: block;
+        margin-bottom: 5px;
+        color: var(--text-muted);
+        font-size: 8px;
+    }
+
+    .preview-stat strong {
+        color: var(--green-900);
+        font-size: 17px;
+        font-weight: 800;
+    }
+
+    .preview-progress {
+        padding: 14px;
+        margin-bottom: 15px;
+        border: 1px solid var(--border);
+        border-radius: 13px;
+        background: #fff;
+    }
+
+    .preview-progress-head {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 9px;
+        color: var(--text-muted);
+        font-size: 8px;
+    }
+
+    .preview-progress-head strong {
+        color: var(--green-700);
+    }
+
+    .progress-track {
+        height: 6px;
+        overflow: hidden;
+        border-radius: 99px;
+        background: var(--green-100);
+    }
+
+    .progress-value {
+        width: 75%;
+        height: 100%;
+        border-radius: inherit;
+        background: linear-gradient(90deg, var(--green-700), var(--green-400));
+    }
+
+    .preview-tasks {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .preview-task {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 11px;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        background: var(--surface-soft);
+    }
+
+    .task-check {
+        width: 25px;
+        height: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1.5px solid var(--green-300);
+        border-radius: 8px;
+        flex-shrink: 0;
+    }
+
+    .completed-task .task-check {
+        border-color: var(--green-600);
+        background: var(--green-600);
+        color: #fff;
+    }
+
+    .task-check i {
+        font-size: 12px;
+    }
+
+    .task-info {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .task-info strong {
+        display: block;
+        overflow: hidden;
+        margin-bottom: 3px;
+        color: var(--text-main);
+        font-size: 9px;
+        font-weight: 700;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .task-info span {
+        color: var(--text-muted);
+        font-size: 7px;
+    }
+
+    .task-success {
+        color: var(--green-500);
+        font-size: 13px;
+    }
+
+    .task-arrow {
+        color: #a5b8b0;
+        font-size: 10px;
+    }
+
+    .ai-floating-card {
+        position: absolute;
+        right: -5px;
+        bottom: 5px;
+        z-index: 4;
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        min-width: 180px;
+        padding: 12px 14px;
+        border: 1px solid rgba(18, 166, 111, 0.16);
+        border-radius: 15px;
+        background: rgba(255, 255, 255, 0.94);
+        box-shadow: var(--shadow-lg);
+        backdrop-filter: blur(15px);
+    }
+
+    .ai-floating-icon {
+        width: 31px;
+        height: 31px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+        background: var(--green-100);
+        color: var(--green-700);
+        font-size: 14px;
+    }
+
+    .ai-floating-card strong {
+        display: block;
+        color: var(--text-main);
+        font-size: 9px;
+        font-weight: 800;
+    }
+
+    .ai-floating-card span:not(.ai-online-dot) {
+        display: block;
+        margin-top: 2px;
+        color: var(--text-muted);
+        font-size: 7px;
+    }
+
+    .ai-online-dot {
+        width: 7px;
+        height: 7px;
+        margin-left: auto;
+        border-radius: 50%;
+        background: var(--green-500);
+        box-shadow: 0 0 0 4px rgba(32, 184, 122, 0.10);
+    }
+
+    .features-section {
+        padding: 80px 25px;
+    }
+
+    .section-intro {
+        max-width: 620px;
+        margin: 0 auto 38px;
+        text-align: center;
+    }
+
+    .section-eyebrow {
+        display: block;
+        margin-bottom: 9px;
+        color: var(--green-600);
+        font-size: 9px;
+        font-weight: 800;
+        letter-spacing: 0.16em;
+    }
+
+    .section-intro h2,
+    .workflow-content h2,
+    .cta-content h2 {
+        margin: 0;
+        color: var(--green-950);
+        font-size: clamp(27px, 4vw, 40px);
+        line-height: 1.15;
+        letter-spacing: -0.035em;
+        font-weight: 800;
+    }
+
+    .section-intro h2 span,
+    .workflow-content h2 span,
+    .cta-content h2 span {
+        color: var(--green-600);
+    }
+
+    .section-intro p {
+        max-width: 500px;
+        margin: 14px auto 0;
+        color: var(--text-muted);
+        font-size: 12px;
+        line-height: 1.7;
+    }
+
+    .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+        max-width: 1050px;
+        margin: 0 auto;
+    }
+
+    .feature-card {
+        display: flex;
+        gap: 15px;
+        padding: 24px;
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        background: var(--surface);
+        box-shadow: var(--shadow-sm);
+        transition: var(--transition);
+    }
+
+    .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-md);
+        border-color: rgba(18, 166, 111, 0.18);
+    }
+
+    .feature-icon {
+        width: 43px;
+        height: 43px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 13px;
+        flex-shrink: 0;
+        background: var(--green-100);
+        color: var(--green-700);
+        font-size: 18px;
+    }
+
+    .feature-card h3 {
+        margin: 2px 0 7px;
+        color: var(--text-main);
+        font-size: 14px;
+        font-weight: 800;
+    }
+
+    .feature-card p {
+        margin: 0;
+        color: var(--text-muted);
+        font-size: 10px;
+        line-height: 1.7;
+    }
+
+    .workflow-section {
+        padding: 20px 25px 80px;
+    }
+
+    .workflow-card {
+        display: grid;
+        grid-template-columns: 0.8fr 1.2fr;
+        align-items: center;
+        gap: 45px;
+        max-width: 1050px;
+        margin: 0 auto;
+        padding: 40px;
+        border: 1px solid rgba(18, 166, 111, 0.12);
+        border-radius: var(--radius-xl);
+        background: linear-gradient(135deg, var(--green-950), var(--green-900));
+        box-shadow: var(--shadow-lg);
+        overflow: hidden;
+        position: relative;
+    }
+
+    .workflow-card::after {
+        content: "";
+        position: absolute;
+        width: 300px;
+        height: 300px;
+        right: -130px;
+        top: -160px;
+        border-radius: 50%;
+        background: rgba(82, 214, 156, 0.10);
+        filter: blur(30px);
+    }
+
+    .workflow-content {
+        position: relative;
+        z-index: 2;
+    }
+
+    .workflow-content .section-eyebrow {
+        color: var(--green-300);
+    }
+
+    .workflow-content h2 {
+        color: #fff;
+    }
+
+    .workflow-content h2 span {
+        color: var(--green-300);
+    }
+
+    .workflow-content p {
+        max-width: 380px;
+        margin: 15px 0 0;
+        color: rgba(255, 255, 255, 0.62);
+        font-size: 11px;
+        line-height: 1.8;
+    }
+
+    .workflow-steps {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+    }
+
+    .workflow-step {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        flex: 1;
+    }
+
+    .step-number {
+        width: 38px;
+        height: 38px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgba(140, 232, 189, 0.25);
+        border-radius: 11px;
+        background: rgba(255, 255, 255, 0.08);
+        color: var(--green-300);
+        font-size: 9px;
+        font-weight: 800;
+    }
+
+    .workflow-step strong {
+        display: block;
+        margin-bottom: 3px;
+        color: #fff;
+        font-size: 10px;
+        font-weight: 800;
+    }
+
+    .workflow-step span {
+        color: rgba(255, 255, 255, 0.50);
+        font-size: 7px;
+    }
+
+    .workflow-line {
+        width: 28px;
+        height: 1px;
+        margin: 0 9px;
+        background: rgba(140, 232, 189, 0.22);
+    }
+
+    .final-cta {
+        position: relative;
+        margin: 0 25px 50px;
+        padding: 70px 25px;
+        overflow: hidden;
+        border-radius: var(--radius-xl);
+        background: linear-gradient(135deg, var(--green-700), var(--green-900));
+        box-shadow: var(--shadow-lg);
+        text-align: center;
+    }
+
+    .cta-glow {
+        position: absolute;
+        width: 380px;
+        height: 380px;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        background: rgba(140, 232, 189, 0.10);
+        filter: blur(50px);
+    }
+
+    .cta-content {
+        position: relative;
+        z-index: 2;
+    }
+
+    .cta-icon {
+        width: 48px;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 18px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.10);
+        color: var(--green-200);
+        font-size: 20px;
+    }
+
+    .cta-content .section-eyebrow {
+        color: var(--green-200);
+    }
+
+    .cta-content h2 {
+        color: #fff;
+    }
+
+    .cta-content h2 span {
+        color: var(--green-200);
+    }
+
+    .cta-content p {
+        max-width: 430px;
+        margin: 13px auto 24px;
+        color: rgba(255, 255, 255, 0.68);
+        font-size: 11px;
+        line-height: 1.7;
+    }
+
+    .landing-btn-white {
+        background: #fff;
+        color: var(--green-800);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+    }
+
+    .landing-btn-white:hover {
+        color: var(--green-800);
+        transform: translateY(-2px);
+        box-shadow: 0 14px 35px rgba(0, 0, 0, 0.17);
+    }
+
+    @@media (max-width: 1100px) {
+
+        .hero-section {
+            grid-template-columns: 1fr;
+            gap: 25px;
+            padding-top: 35px;
+        }
+
+        .hero-content {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .hero-description {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-actions,
+        .hero-note {
+            justify-content: center;
+        }
+
+        .dashboard-preview {
+            max-width: 650px;
+            width: 100%;
+            margin: 0 auto;
+            padding-right: 0;
+        }
+
+        .feature-grid {
+            grid-template-columns: 1fr;
+            max-width: 600px;
+        }
+
+        .workflow-card {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @@media (max-width: 767px) {
+
+        .landing-page {
+            margin: -5px -2px 0;
+        }
+
+        .hero-section {
+            min-height: auto;
+            padding: 35px 10px 60px;
+        }
+
+        .hero-content h1 {
+            font-size: 42px;
+        }
+
+        .hero-description {
+            font-size: 13px;
+        }
+
+        .hero-actions {
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .landing-btn {
+            width: 100%;
+        }
+
+        .hero-note {
+            align-items: flex-start;
+            text-align: left;
+        }
+
+        .dashboard-preview {
+            padding: 20px 0 35px;
+        }
+
+        .preview-window {
+            transform: none;
+        }
+
+        .preview-window:hover {
+            transform: translateY(-3px);
+        }
+
+        .preview-content {
+            padding: 17px;
+        }
+
+        .preview-stats {
+            gap: 6px;
+        }
+
+        .preview-stat {
+            padding: 10px;
+        }
+
+        .preview-stat strong {
+            font-size: 14px;
+        }
+
+        .ai-floating-card {
+            right: 0;
+            bottom: 0;
+        }
+
+        .features-section,
+        .workflow-section {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        .feature-card {
+            padding: 20px;
+        }
+
+        .workflow-card {
+            padding: 27px 20px;
+        }
+
+        .workflow-steps {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 12px;
+        }
+
+        .workflow-line {
+            width: 1px;
+            height: 18px;
+            margin: 0 0 0 18px;
+        }
+
+        .final-cta {
+            margin: 0 10px 30px;
+            padding: 55px 20px;
+        }
+
+    }
+
+</style>

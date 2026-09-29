@@ -1,0 +1,118 @@
+@page
+@model AccessDeniedModel
+
+@{
+ViewData["Title"] = "Access Denied";
+}
+
+<div class="access-denied-page">
+
+
+<div class="access-denied-card">
+
+    <div class="access-icon">
+        <i class="bi bi-shield-lock"></i>
+    </div>
+
+    <span class="access-eyebrow">
+        SECURITY
+    </span>
+
+    <h1>Access Denied</h1>
+
+    <p>
+        You do not have permission to access this resource.
+    </p>
+
+    <a asp-controller="Home"
+       asp-action="Index"
+       class="btn btn-primary">
+        <i class="bi bi-house"></i>
+        Back to Dashboard
+    </a>
+
+</div>
+
+
+</div>
+
+<style>
+
+    .access-denied-page {
+        min-height: calc(100vh - 180px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 20px;
+    }
+
+    .access-denied-card {
+        width: 100%;
+        max-width: 440px;
+        padding: 42px 35px;
+        text-align: center;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-xl);
+        box-shadow: var(--shadow-lg);
+    }
+
+    .access-icon {
+        width: 68px;
+        height: 68px;
+        margin: 0 auto 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 20px;
+        background: var(--green-100);
+        color: var(--green-700);
+        font-size: 28px;
+    }
+
+    .access-eyebrow {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--green-700);
+        font-size: 9px;
+        font-weight: 800;
+        letter-spacing: 1.5px;
+    }
+
+    .access-denied-card h1 {
+        margin: 0 0 10px;
+        color: var(--text-main);
+        font-size: 27px;
+        font-weight: 750;
+    }
+
+    .access-denied-card p {
+        max-width: 300px;
+        margin: 0 auto 25px;
+        color: var(--text-muted);
+        font-size: 12px;
+        line-height: 1.7;
+    }
+
+    .access-denied-card .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 11px 18px;
+        border-radius: 11px;
+        font-size: 11px;
+        font-weight: 700;
+    }
+
+    @@media (max-width: 767px) {
+        .access-denied-page {
+            min-height: calc(100vh - 120px);
+            padding: 25px 15px;
+        }
+
+        .access-denied-card {
+            padding: 35px 25px;
+        }
+    }
+
+</style>

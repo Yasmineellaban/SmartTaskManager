@@ -1,0 +1,481 @@
+﻿@model IEnumerable<SmartTaskManager.Models.TaskItem>
+
+@{
+    ViewData["Title"] = "Calendar";
+}
+
+<div class="page-header">
+    <div>
+        <span class="page-eyebrow">PLANNING</span>
+        <h1 class="page-title">Calendar</h1>
+        <p class="page-subtitle">
+            Keep track of your upcoming deadlines and scheduled tasks.
+        </p>
+    </div>
+
+    <a asp-controller="Tasks"
+       asp-action="Create"
+       class="btn btn-primary">
+        <i class="bi bi-plus-lg"></i>
+        Create New Task
+    </a>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="calendar-empty-card">
+
+        <div class="empty-icon">
+            <i class="bi bi-calendar3"></i>
+        </div>
+
+        <h2>No scheduled tasks</h2>
+
+        <p>
+            You don't have any tasks with due dates yet.
+            Create a task and give it a deadline to see it here.
+        </p>
+
+        <a asp-controller="Tasks"
+           asp-action="Create"
+           class="btn btn-primary">
+            <i class="bi bi-plus-lg"></i>
+            Create New Task
+        </a>
+
+    </div>
+}
+else
+{
+    <div class="calendar-summary">
+
+        <div class="summary-item">
+            <div class="summary-icon">
+                <i class="bi bi-calendar-check"></i>
+            </div>
+
+            <div>
+                <span>Scheduled Tasks</span>
+                <strong>@Model.Count()</strong>
+            </div>
+        </div>
+
+        <div class="summary-item">
+            <div class="summary-icon">
+                <i class="bi bi-clock"></i>
+            </div>
+
+            <div>
+                <span>Upcoming</span>
+                <strong>
+                    @Model.Count(t =>
+                        t.DueDate.HasValue &&
+                        t.DueDate.Value >= DateTime.Now)
+                </strong>
+            </div>
+        </div>
+
+        <div class="summary-item">
+            <div class="summary-icon">
+                <i class="bi bi-check2-circle"></i>
+            </div>
+
+            <div>
+                <span>Completed</span>
+                <strong>
+                    @Model.Count(t =>
+                        t.Status == SmartTaskManager.Models.TaskStatus.Completed)
+                </strong>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="calendar-list">
+
+        @foreach (var task in Model.OrderBy(t => t.DueDate))
+        {
+            var isOverdue =
+                task.DueDate.HasValue &&
+                task.DueDate.Value < DateTime.Now &&
+                task.Status != SmartTaskManager.Models.TaskStatus.Completed;
+
+            var statusClass =
+                task.Status.ToString().ToLower();
+
+            var priorityClass =
+                task.Priority.ToString().ToLower();
+
+            <a asp-controller="Tasks"
+               asp-action="Details"
+               asp-route-id="@task.Id"
+               class="calendar-task-card">
+
+                <div class="date-block @(isOverdue ? "overdue" : "")">
+
+                    <span class="date-month">
+                        @task.DueDate?.ToString("MMM")
+                    </span>
+
+                    <strong>
+                        @task.DueDate?.ToString("dd")
+                    </strong>
+
+                    <span class="date-year">
+                        @task.DueDate?.ToString("yyyy")
+                    </span>
+
+                </div>
+
+                <div class="task-content">
+
+                    <div class="task-top">
+
+                        <span class="task-time">
+                            <i class="bi bi-clock"></i>
+                            @task.DueDate?.ToString("h:mm tt")
+                        </span>
+
+                        @if (isOverdue)
+                        {
+                            <span class="status-pill overdue-pill">
+                                Overdue
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="status-pill @statusClass">
+                                @task.Status
+                            </span>
+                        }
+
+                    </div>
+
+                    <h3>@task.Title</h3>
+
+                    @if (!string.IsNullOrWhiteSpace(task.Description))
+                    {
+                        <p>
+                            @task.Description
+                        </p>
+                    }
+
+                    <div class="task-meta">
+
+                        <span class="priority-pill @priorityClass">
+                            <i class="bi bi-flag"></i>
+                            @task.Priority
+                        </span>
+
+                        @if (task.Category != null)
+                        {
+                            <span class="category-pill">
+                                <i class="bi bi-folder"></i>
+                                @task.Category.Name
+                            </span>
+                        }
+
+                    </div>
+
+                </div>
+
+                <div class="task-arrow">
+                    <i class="bi bi-arrow-up-right"></i>
+                </div>
+
+            </a>
+        }
+
+    </div>
+}
+
+<style>
+    .calendar-summary {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+        margin-bottom: 24px;
+    }
+
+    .summary-item {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 18px 20px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-sm);
+    }
+
+    .summary-icon {
+        width: 42px;
+        height: 42px;
+        border-radius: 13px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--green-100);
+        color: var(--green-700);
+        font-size: 18px;
+        flex-shrink: 0;
+    }
+
+    .summary-item span {
+        display: block;
+        margin-bottom: 3px;
+        color: var(--text-muted);
+        font-size: 10px;
+        font-weight: 600;
+    }
+
+    .summary-item strong {
+        color: var(--text-main);
+        font-size: 19px;
+        font-weight: 750;
+    }
+
+    .calendar-list {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+    }
+
+    .calendar-task-card {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        padding: 18px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-sm);
+        color: inherit;
+        text-decoration: none;
+        transition: var(--transition);
+    }
+
+    .calendar-task-card:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+        border-color: rgba(18, 166, 111, 0.22);
+        color: inherit;
+    }
+
+    .date-block {
+        width: 70px;
+        min-width: 70px;
+        padding: 10px 8px;
+        border-radius: 16px;
+        background: var(--green-100);
+        color: var(--green-800);
+        text-align: center;
+    }
+
+    .date-block.overdue {
+        background: #fff1ef;
+        color: #c45145;
+    }
+
+    .date-month,
+    .date-year {
+        display: block;
+        font-size: 9px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.7px;
+    }
+
+    .date-block strong {
+        display: block;
+        margin: 1px 0;
+        font-size: 25px;
+        line-height: 1.1;
+        font-weight: 750;
+    }
+
+    .task-content {
+        min-width: 0;
+        flex: 1;
+    }
+
+    .task-top {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        margin-bottom: 6px;
+    }
+
+    .task-time {
+        color: var(--text-muted);
+        font-size: 10px;
+        font-weight: 600;
+    }
+
+    .task-time i {
+        margin-right: 3px;
+    }
+
+    .task-content h3 {
+        margin: 0 0 5px;
+        color: var(--text-main);
+        font-size: 15px;
+        font-weight: 700;
+    }
+
+    .task-content p {
+        margin: 0 0 10px;
+        color: var(--text-muted);
+        font-size: 11px;
+        line-height: 1.5;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .status-pill,
+    .priority-pill,
+    .category-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        width: fit-content;
+        padding: 4px 8px;
+        border-radius: 20px;
+        font-size: 9px;
+        font-weight: 700;
+    }
+
+    .status-pill.pending {
+        background: #fff8ed;
+        color: #a06b27;
+    }
+
+    .status-pill.inprogress {
+        background: #edf5ff;
+        color: #4777a8;
+    }
+
+    .status-pill.completed {
+        background: var(--green-100);
+        color: var(--green-700);
+    }
+
+    .status-pill.cancelled,
+    .overdue-pill {
+        background: #fff1ef;
+        color: #c45145;
+    }
+
+    .task-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+    }
+
+    .priority-pill.low {
+        background: #f1f7f4;
+        color: #658077;
+    }
+
+    .priority-pill.medium {
+        background: #fff8ed;
+        color: #a06b27;
+    }
+
+    .priority-pill.high,
+    .priority-pill.urgent {
+        background: #fff1ef;
+        color: #b84e43;
+    }
+
+    .category-pill {
+        background: var(--green-50);
+        color: var(--green-700);
+    }
+
+    .task-arrow {
+        width: 34px;
+        height: 34px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--surface-soft);
+        color: var(--text-muted);
+        font-size: 14px;
+        flex-shrink: 0;
+        transition: var(--transition);
+    }
+
+    .calendar-task-card:hover .task-arrow {
+        background: var(--green-100);
+        color: var(--green-700);
+        transform: translate(2px, -2px);
+    }
+
+    .calendar-empty-card {
+        padding: 70px 30px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-xl);
+        box-shadow: var(--shadow-md);
+        text-align: center;
+    }
+
+    .empty-icon {
+        width: 62px;
+        height: 62px;
+        margin: 0 auto 18px;
+        border-radius: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--green-100);
+        color: var(--green-700);
+        font-size: 25px;
+    }
+
+    .calendar-empty-card h2 {
+        margin: 0 0 8px;
+        color: var(--text-main);
+        font-size: 20px;
+    }
+
+    .calendar-empty-card p {
+        max-width: 420px;
+        margin: 0 auto 22px;
+        color: var(--text-muted);
+        font-size: 12px;
+        line-height: 1.7;
+    }
+
+    @@media (max-width: 767px) {
+        .calendar-summary {
+            grid-template-columns: 1fr;
+        }
+
+        .calendar-task-card {
+            align-items: flex-start;
+            gap: 13px;
+        }
+
+        .date-block {
+            width: 58px;
+            min-width: 58px;
+        }
+
+        .date-block strong {
+            font-size: 21px;
+        }
+
+        .task-arrow {
+            display: none;
+        }
+
+        .page-header .btn {
+            display: none;
+        }
+    }
+</style>

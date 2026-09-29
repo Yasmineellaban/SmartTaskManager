@@ -1,0 +1,406 @@
+@page
+@model RegisterConfirmationModel
+
+@{
+ViewData["Title"] = "Register Confirmation";
+}
+
+<div class="register-confirmation-page">
+
+
+<div class="register-confirmation-card">
+
+    <div class="confirmation-icon">
+        <i class="bi bi-person-check"></i>
+    </div>
+
+    <span class="confirmation-eyebrow">
+        ACCOUNT CREATED
+    </span>
+
+    <h1>Welcome to SmartTask</h1>
+
+    @if (Model.DisplayConfirmAccountLink)
+    {
+        <p class="confirmation-description">
+            Your account has been created successfully.
+            Confirm your email address using the link below
+            to complete your registration.
+        </p>
+
+        <div class="confirmation-note">
+
+            <i class="bi bi-info-circle"></i>
+
+            <div>
+                <strong>Email sender not configured</strong>
+
+                <span>
+                    This app does not currently have a real email
+                    sender registered.
+                </span>
+            </div>
+
+        </div>
+
+        <a id="confirm-link"
+           href="@Model.EmailConfirmationUrl"
+           class="btn btn-primary confirm-button">
+
+            <i class="bi bi-envelope-check"></i>
+            Confirm My Account
+
+        </a>
+
+        <p class="docs-text">
+            To configure a real email sender, see the
+            <a href="https://aka.ms/aspaccountconf">
+                ASP.NET Core documentation
+            </a>.
+        </p>
+    }
+    else
+    {
+        <p class="confirmation-description">
+            Your account has been created successfully.
+            Please check your email to confirm your account.
+        </p>
+
+        <div class="email-check-card">
+
+            <div class="email-icon">
+                <i class="bi bi-envelope"></i>
+            </div>
+
+            <div>
+                <strong>Check your inbox</strong>
+
+                <span>
+                    Don't see the email? Check your spam or junk folder.
+                </span>
+            </div>
+
+        </div>
+    }
+
+    <a asp-page="./Login"
+       class="back-login">
+
+        <i class="bi bi-arrow-left"></i>
+        Back to Login
+
+    </a>
+
+</div>
+
+
+</div>
+
+<style>
+
+    .register-confirmation-page {
+        min-height: calc(100vh - 180px);
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: 40px 20px;
+    }
+
+
+    .register-confirmation-card {
+        width: 100%;
+        max-width: 470px;
+
+        padding: 42px 35px;
+
+        text-align: center;
+
+        background: var(--surface);
+
+        border: 1px solid var(--border);
+
+        border-radius: var(--radius-xl);
+
+        box-shadow: var(--shadow-lg);
+    }
+
+
+    .confirmation-icon {
+        width: 68px;
+        height: 68px;
+
+        margin: 0 auto 20px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 20px;
+
+        background: var(--green-100);
+
+        color: var(--green-700);
+
+        font-size: 28px;
+    }
+
+
+    .confirmation-eyebrow {
+        display: block;
+
+        margin-bottom: 8px;
+
+        color: var(--green-700);
+
+        font-size: 9px;
+        font-weight: 800;
+
+        letter-spacing: 1.5px;
+    }
+
+
+    .register-confirmation-card h1 {
+        margin: 0 0 10px;
+
+        color: var(--text-main);
+
+        font-size: 25px;
+        font-weight: 750;
+    }
+
+
+    .confirmation-description {
+        max-width: 345px;
+
+        margin: 0 auto 22px;
+
+        color: var(--text-muted);
+
+        font-size: 11px;
+
+        line-height: 1.7;
+    }
+
+
+    .confirmation-note {
+        display: flex;
+
+        align-items: flex-start;
+
+        gap: 11px;
+
+        margin-bottom: 20px;
+
+        padding: 14px;
+
+        border-radius: 13px;
+
+        background: var(--green-50);
+
+        color: var(--text-muted);
+
+        text-align: left;
+    }
+
+
+    .confirmation-note > i {
+        margin-top: 1px;
+
+        color: var(--green-600);
+
+        font-size: 15px;
+
+        flex-shrink: 0;
+    }
+
+
+    .confirmation-note div {
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 3px;
+    }
+
+
+    .confirmation-note strong {
+        color: var(--text-main);
+
+        font-size: 10px;
+        font-weight: 700;
+    }
+
+
+    .confirmation-note span {
+        font-size: 9px;
+
+        line-height: 1.6;
+    }
+
+
+    .confirm-button {
+        width: 100%;
+
+        min-height: 45px;
+
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        gap: 8px;
+
+        border-radius: 12px;
+
+        font-size: 11px;
+        font-weight: 700;
+    }
+
+
+    .docs-text {
+        max-width: 340px;
+
+        margin: 15px auto 0;
+
+        color: var(--text-muted);
+
+        font-size: 9px;
+
+        line-height: 1.6;
+    }
+
+
+    .docs-text a {
+        color: var(--green-700);
+
+        font-weight: 600;
+
+        text-decoration: none;
+    }
+
+
+    .docs-text a:hover {
+        color: var(--green-900);
+
+        text-decoration: underline;
+    }
+
+
+    .email-check-card {
+        display: flex;
+
+        align-items: flex-start;
+
+        gap: 11px;
+
+        margin-bottom: 20px;
+
+        padding: 14px;
+
+        border: 1px solid var(--border);
+
+        border-radius: 13px;
+
+        background: var(--surface-soft);
+
+        text-align: left;
+    }
+
+
+    .email-icon {
+        width: 34px;
+        height: 34px;
+
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        flex-shrink: 0;
+
+        border-radius: 10px;
+
+        background: var(--green-100);
+
+        color: var(--green-700);
+
+        font-size: 14px;
+    }
+
+
+    .email-check-card div:last-child {
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 3px;
+    }
+
+
+    .email-check-card strong {
+        color: var(--text-main);
+
+        font-size: 10px;
+        font-weight: 700;
+    }
+
+
+    .email-check-card span {
+        color: var(--text-muted);
+
+        font-size: 9px;
+
+        line-height: 1.6;
+    }
+
+
+    .back-login {
+        display: inline-flex;
+
+        align-items: center;
+
+        gap: 7px;
+
+        margin-top: 22px;
+
+        color: var(--text-muted);
+
+        font-size: 10px;
+        font-weight: 600;
+
+        text-decoration: none;
+
+        transition: var(--transition);
+    }
+
+
+    .back-login:hover {
+        color: var(--green-700);
+
+        gap: 9px;
+    }
+
+
+    @@media (max-width: 767px) {
+
+        .register-confirmation-page {
+            min-height: calc(100vh - 120px);
+
+            padding: 25px 15px;
+        }
+
+
+        .register-confirmation-card {
+            padding: 35px 25px;
+        }
+
+
+        .register-confirmation-card h1 {
+            font-size: 23px;
+        }
+
+    }
+
+</style>

@@ -1,0 +1,240 @@
+@page
+@model LogoutModel
+
+@{
+ViewData["Title"] = "Log out";
+}
+
+<div class="logout-page">
+
+
+<div class="logout-card">
+
+    <div class="logout-icon">
+        <i class="bi bi-box-arrow-right"></i>
+    </div>
+
+    @if (User.Identity?.IsAuthenticated ?? false)
+    {
+        <span class="logout-eyebrow">
+            SESSION
+        </span>
+
+        <h1>Ready to log out?</h1>
+
+        <p>
+            You're about to sign out of your SmartTask Manager
+            account.
+        </p>
+
+        <form class="logout-form"
+              asp-area="Identity"
+              asp-page="/Account/Logout"
+              asp-route-returnUrl="@Url.Page("/", new { area = "" })"
+              method="post">
+
+            <button type="submit"
+                    class="btn btn-primary logout-button">
+
+                <i class="bi bi-box-arrow-right"></i>
+                Log Out
+
+            </button>
+
+        </form>
+
+        <a asp-page="/Account/Manage/Index"
+           class="cancel-logout">
+
+            <i class="bi bi-arrow-left"></i>
+            Stay Signed In
+
+        </a>
+    }
+    else
+    {
+        <span class="logout-eyebrow">
+            SESSION ENDED
+        </span>
+
+        <h1>You're Logged Out</h1>
+
+        <p>
+            You have successfully logged out of
+            SmartTask Manager.
+        </p>
+
+        <a asp-page="/Account/Login"
+           class="btn btn-primary logout-button">
+
+            <i class="bi bi-box-arrow-in-right"></i>
+            Log In Again
+
+        </a>
+    }
+
+</div>
+
+
+</div>
+
+<style>
+
+    .logout-page {
+        min-height: calc(100vh - 180px);
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: 40px 20px;
+    }
+
+
+    .logout-card {
+        width: 100%;
+        max-width: 440px;
+
+        padding: 42px 35px;
+
+        text-align: center;
+
+        background: var(--surface);
+
+        border: 1px solid var(--border);
+
+        border-radius: var(--radius-xl);
+
+        box-shadow: var(--shadow-lg);
+    }
+
+
+    .logout-icon {
+        width: 68px;
+        height: 68px;
+
+        margin: 0 auto 20px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 20px;
+
+        background: var(--green-100);
+
+        color: var(--green-700);
+
+        font-size: 28px;
+    }
+
+
+    .logout-eyebrow {
+        display: block;
+
+        margin-bottom: 8px;
+
+        color: var(--green-700);
+
+        font-size: 9px;
+        font-weight: 800;
+
+        letter-spacing: 1.5px;
+    }
+
+
+    .logout-card h1 {
+        margin: 0 0 10px;
+
+        color: var(--text-main);
+
+        font-size: 25px;
+        font-weight: 750;
+    }
+
+
+    .logout-card p {
+        max-width: 310px;
+
+        margin: 0 auto 25px;
+
+        color: var(--text-muted);
+
+        font-size: 12px;
+
+        line-height: 1.7;
+    }
+
+
+    .logout-form {
+        margin: 0;
+    }
+
+
+    .logout-button {
+        width: 100%;
+
+        min-height: 45px;
+
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        gap: 8px;
+
+        border-radius: 12px;
+
+        font-size: 11px;
+        font-weight: 700;
+    }
+
+
+    .cancel-logout {
+        display: inline-flex;
+
+        align-items: center;
+
+        gap: 7px;
+
+        margin-top: 20px;
+
+        color: var(--text-muted);
+
+        font-size: 10px;
+        font-weight: 600;
+
+        text-decoration: none;
+
+        transition: var(--transition);
+    }
+
+
+    .cancel-logout:hover {
+        color: var(--green-700);
+
+        gap: 9px;
+    }
+
+
+    @@media (max-width: 767px) {
+
+        .logout-page {
+            min-height: calc(100vh - 120px);
+
+            padding: 25px 15px;
+        }
+
+
+        .logout-card {
+            padding: 35px 25px;
+        }
+
+
+        .logout-card h1 {
+            font-size: 23px;
+        }
+
+    }
+
+</style>

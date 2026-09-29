@@ -1,0 +1,124 @@
+@model string
+
+@if (!String.IsNullOrEmpty(Model))
+{
+    var isError = Model.StartsWith("Error");
+
+    <div class="status-message @(isError ? "status-error" : "status-success")"
+         role="alert">
+
+        <div class="status-icon">
+            <i class="bi @(isError ? "bi-exclamation-circle" : "bi-check-circle")"></i>
+        </div>
+
+        <div class="status-content">
+            <span class="status-text">
+                @Model
+            </span>
+        </div>
+
+        <button type="button"
+                class="status-close"
+                data-bs-dismiss="alert"
+                aria-label="Close">
+            <i class="bi bi-x-lg"></i>
+        </button>
+
+    </div>
+}
+
+<style>
+
+    .status-message {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+
+        width: 100%;
+        margin-bottom: 20px;
+        padding: 13px 15px;
+
+        border: 1px solid;
+        border-radius: 14px;
+
+        font-size: 12px;
+        line-height: 1.5;
+
+        box-shadow: var(--shadow-sm);
+    }
+
+    .status-success {
+        background: var(--green-50);
+        border-color: rgba(18, 166, 111, 0.18);
+        color: var(--green-800);
+    }
+
+    .status-error {
+        background: #fff4f2;
+        border-color: rgba(196, 81, 69, 0.18);
+        color: #a64c3c;
+    }
+
+    .status-icon {
+        width: 32px;
+        height: 32px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 10px;
+        flex-shrink: 0;
+
+        font-size: 15px;
+    }
+
+    .status-success .status-icon {
+        background: var(--green-100);
+        color: var(--green-700);
+    }
+
+    .status-error .status-icon {
+        background: #ffe5e1;
+        color: #b65346;
+    }
+
+    .status-content {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .status-text {
+        display: block;
+        word-break: break-word;
+    }
+
+    .status-close {
+        width: 28px;
+        height: 28px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: 0;
+
+        border: none;
+        border-radius: 8px;
+
+        background: transparent;
+        color: currentColor;
+
+        font-size: 10px;
+        opacity: 0.55;
+
+        cursor: pointer;
+        transition: var(--transition);
+    }
+
+    .status-close:hover {
+        opacity: 1;
+        background: rgba(0, 0, 0, 0.05);
+    }
+
+</style>

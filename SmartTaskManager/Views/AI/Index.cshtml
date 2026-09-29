@@ -1,0 +1,795 @@
+﻿@{
+    ViewData["Title"] = "AI Assistant";
+}
+
+<div class="page-header">
+    <div>
+        <span class="page-eyebrow">INTELLIGENCE</span>
+
+        <div class="assistant-title-row">
+            <h1 class="page-title">AI Assistant</h1>
+
+            <span class="assistant-status">
+                <span class="status-dot"></span>
+                Online
+            </span>
+        </div>
+
+        <p class="page-subtitle">
+            Ask Gemini questions, get ideas, and work smarter with AI.
+        </p>
+    </div>
+</div>
+
+<div class="assistant-layout">
+
+    <div class="assistant-card">
+
+        <div class="assistant-card-header">
+
+            <div class="assistant-icon">
+                <i class="bi bi-stars"></i>
+            </div>
+
+            <div>
+                <h2>Smart Assistant</h2>
+                <p>
+                    Ask anything about your tasks or productivity.
+                </p>
+            </div>
+
+        </div>
+
+        <form id="aiForm">
+            @Html.AntiForgeryToken()
+
+            <div class="prompt-section">
+
+                <label for="prompt">
+                    Your Question
+                </label>
+
+                <div class="prompt-wrapper">
+
+                    <textarea id="prompt"
+                              name="prompt"
+                              rows="6"
+                              placeholder="Ask something..."></textarea>
+
+                    <button id="askButton"
+                            type="submit"
+                            class="ask-button">
+
+                        <i class="bi bi-stars"></i>
+
+                        <span>Ask AI</span>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </form>
+
+        <div class="response-section">
+
+            <div class="response-header">
+
+                <div class="response-title">
+
+                    <div class="response-icon">
+                        <i class="bi bi-chat-left-text"></i>
+                    </div>
+
+                    <div>
+                        <h3>AI Response</h3>
+
+                        <span>
+                            Gemini is ready to help
+                        </span>
+                    </div>
+
+                </div>
+
+                <div class="ai-badge">
+                    <i class="bi bi-stars"></i>
+                    Gemini
+                </div>
+
+            </div>
+
+            <div id="response"
+                 class="response-box">
+
+                <div class="response-empty">
+
+                    <div class="empty-ai-icon">
+                        <i class="bi bi-stars"></i>
+                    </div>
+
+                    <h4>How can I help you?</h4>
+
+                    <p>
+                        Ask a question and your AI response
+                        will appear here.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="assistant-info-card">
+
+        <div class="info-ai-icon">
+            <i class="bi bi-sparkles"></i>
+        </div>
+
+        <h3>AI at your fingertips</h3>
+
+        <p>
+            Use the assistant to understand concepts,
+            organize your thoughts, and get helpful answers.
+        </p>
+
+        <div class="capability-list">
+
+            <div class="capability-item">
+                <div class="capability-icon">
+                    <i class="bi bi-chat-dots"></i>
+                </div>
+
+                <div>
+                    <strong>Ask Questions</strong>
+                    <span>Get clear AI-powered answers.</span>
+                </div>
+            </div>
+
+            <div class="capability-item">
+                <div class="capability-icon">
+                    <i class="bi bi-lightbulb"></i>
+                </div>
+
+                <div>
+                    <strong>Get Ideas</strong>
+                    <span>Brainstorm and explore new ideas.</span>
+                </div>
+            </div>
+
+            <div class="capability-item">
+                <div class="capability-icon">
+                    <i class="bi bi-lightning"></i>
+                </div>
+
+                <div>
+                    <strong>Work Smarter</strong>
+                    <span>Use AI to improve your workflow.</span>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<style>
+
+    .assistant-title-row {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+    }
+
+    .assistant-status {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        padding: 6px 11px;
+        border-radius: 999px;
+        background: var(--green-100);
+        color: var(--green-700);
+        font-size: 10px;
+        font-weight: 700;
+    }
+
+    .status-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--green-500);
+        box-shadow: 0 0 0 4px rgba(32, 184, 122, 0.10);
+    }
+
+
+    .assistant-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 300px;
+        gap: 24px;
+        align-items: start;
+    }
+
+
+    .assistant-card,
+    .assistant-info-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-xl);
+        box-shadow: var(--shadow-md);
+    }
+
+
+    .assistant-card {
+        overflow: hidden;
+    }
+
+
+    .assistant-card-header {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 28px 30px;
+        border-bottom: 1px solid var(--border);
+    }
+
+
+    .assistant-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(
+            135deg,
+            var(--green-700),
+            var(--green-500)
+        );
+        color: white;
+        font-size: 20px;
+        box-shadow: 0 8px 20px rgba(11, 138, 91, 0.18);
+        flex-shrink: 0;
+    }
+
+
+    .assistant-card-header h2 {
+        margin: 0 0 4px;
+        color: var(--text-main);
+        font-size: 18px;
+        font-weight: 700;
+    }
+
+
+    .assistant-card-header p {
+        margin: 0;
+        color: var(--text-muted);
+        font-size: 12px;
+    }
+
+
+    .prompt-section {
+        padding: 28px 30px;
+    }
+
+
+    .prompt-section > label {
+        display: block;
+        margin-bottom: 9px;
+        color: var(--text-main);
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+
+    .prompt-wrapper {
+        position: relative;
+    }
+
+
+    #prompt {
+        width: 100%;
+        min-height: 155px;
+        padding: 15px 16px 58px;
+        resize: vertical;
+        border: 1px solid var(--border);
+        border-radius: 15px;
+        background: var(--surface-soft);
+        color: var(--text-main);
+        font-family: inherit;
+        font-size: 13px;
+        line-height: 1.6;
+        outline: none;
+        transition: var(--transition);
+    }
+
+
+    #prompt::placeholder {
+        color: #9aaba4;
+    }
+
+
+    #prompt:focus {
+        border-color: var(--green-400);
+        background: var(--surface);
+        box-shadow:
+            0 0 0 4px rgba(32, 184, 122, 0.10);
+    }
+
+
+    .ask-button {
+        position: absolute;
+        right: 12px;
+        bottom: 12px;
+
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+
+        padding: 10px 17px;
+
+        border: none;
+        border-radius: 11px;
+
+        background: var(--green-700);
+        color: white;
+
+        font-family: inherit;
+        font-size: 11px;
+        font-weight: 700;
+
+        cursor: pointer;
+        transition: var(--transition);
+
+        box-shadow: 0 6px 16px rgba(11, 138, 91, 0.18);
+    }
+
+
+    .ask-button:hover {
+        background: var(--green-800);
+        transform: translateY(-1px);
+        box-shadow: 0 9px 22px rgba(11, 138, 91, 0.22);
+    }
+
+
+    .ask-button:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+        transform: none;
+    }
+
+
+    .response-section {
+        margin: 0 30px 30px;
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        overflow: hidden;
+        background: var(--surface-soft);
+    }
+
+
+    .response-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 15px;
+
+        padding: 17px 18px;
+
+        background: var(--surface);
+        border-bottom: 1px solid var(--border);
+    }
+
+
+    .response-title {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+    }
+
+
+    .response-icon {
+        width: 34px;
+        height: 34px;
+        border-radius: 10px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        background: var(--green-100);
+        color: var(--green-700);
+        font-size: 15px;
+    }
+
+
+    .response-title h3 {
+        margin: 0 0 2px;
+        color: var(--text-main);
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+
+    .response-title span {
+        color: var(--text-muted);
+        font-size: 10px;
+    }
+
+
+    .ai-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+
+        padding: 6px 9px;
+
+        border-radius: 8px;
+
+        background: var(--green-50);
+        color: var(--green-700);
+
+        font-size: 9px;
+        font-weight: 700;
+    }
+
+
+    .response-box {
+        min-height: 220px;
+        padding: 24px;
+
+        color: var(--text-main);
+        font-size: 13px;
+        line-height: 1.7;
+    }
+
+
+    .response-empty {
+        min-height: 170px;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        text-align: center;
+    }
+
+
+    .empty-ai-icon {
+        width: 52px;
+        height: 52px;
+        margin-bottom: 13px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 16px;
+
+        background: var(--green-100);
+        color: var(--green-600);
+
+        font-size: 22px;
+    }
+
+
+    .response-empty h4 {
+        margin: 0 0 5px;
+        color: var(--text-main);
+        font-size: 14px;
+        font-weight: 700;
+    }
+
+
+    .response-empty p {
+        max-width: 300px;
+        margin: 0;
+
+        color: var(--text-muted);
+        font-size: 11px;
+        line-height: 1.6;
+    }
+
+
+    .response-box p {
+        margin-bottom: 12px;
+    }
+
+
+    .response-box ul,
+    .response-box ol {
+        padding-left: 22px;
+        margin-bottom: 14px;
+    }
+
+
+    .response-box code {
+        padding: 2px 5px;
+        border-radius: 5px;
+        background: var(--green-100);
+        color: var(--green-800);
+        font-size: 11px;
+    }
+
+
+    .response-box pre {
+        padding: 15px;
+        overflow-x: auto;
+        border-radius: 12px;
+        background: #12352a;
+        color: #e7faf1;
+    }
+
+
+    .response-box pre code {
+        padding: 0;
+        background: transparent;
+        color: inherit;
+    }
+
+
+    .assistant-info-card {
+        padding: 25px;
+    }
+
+
+    .info-ai-icon {
+        width: 46px;
+        height: 46px;
+        margin-bottom: 18px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 14px;
+
+        background: var(--green-100);
+        color: var(--green-700);
+
+        font-size: 20px;
+    }
+
+
+    .assistant-info-card h3 {
+        margin: 0 0 9px;
+        color: var(--text-main);
+        font-size: 18px;
+        font-weight: 700;
+    }
+
+
+    .assistant-info-card > p {
+        margin: 0 0 20px;
+        color: var(--text-muted);
+        font-size: 11px;
+        line-height: 1.7;
+    }
+
+
+    .capability-list {
+        border-top: 1px solid var(--border);
+    }
+
+
+    .capability-item {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+
+        padding: 14px 0;
+
+        border-bottom: 1px solid var(--border);
+    }
+
+
+    .capability-item:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+
+
+    .capability-icon {
+        width: 32px;
+        height: 32px;
+        border-radius: 9px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        background: var(--green-50);
+        color: var(--green-600);
+
+        font-size: 14px;
+        flex-shrink: 0;
+    }
+
+
+    .capability-item strong {
+        display: block;
+        margin-bottom: 2px;
+        color: var(--text-main);
+        font-size: 11px;
+    }
+
+
+    .capability-item span {
+        display: block;
+        color: var(--text-muted);
+        font-size: 9px;
+        line-height: 1.4;
+    }
+
+
+    @@media (max-width: 991px) {
+
+        .assistant-layout {
+            grid-template-columns: 1fr;
+        }
+
+        .assistant-info-card {
+            display: none;
+        }
+    }
+
+
+    @@media (max-width: 767px) {
+
+        .assistant-card-header {
+            padding: 22px;
+        }
+
+        .prompt-section {
+            padding: 22px;
+        }
+
+        .response-section {
+            margin: 0 22px 22px;
+        }
+
+        .response-header {
+            align-items: flex-start;
+        }
+
+        .ai-badge {
+            display: none;
+        }
+
+        .assistant-status {
+            display: none;
+        }
+
+        .assistant-title-row {
+            display: block;
+        }
+    }
+
+</style>
+
+
+@section Scripts {
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <script>
+
+        const form = document.getElementById("aiForm");
+        const promptInput = document.getElementById("prompt");
+        const responseBox = document.getElementById("response");
+        const askButton = document.getElementById("askButton");
+
+        form.addEventListener("submit", async function (event) {
+
+            event.preventDefault();
+
+            const prompt = promptInput.value.trim();
+
+            if (!prompt) {
+                return;
+            }
+
+            responseBox.innerHTML = "";
+            askButton.disabled = true;
+
+            askButton.innerHTML =
+                '<i class="bi bi-arrow-repeat"></i><span>Thinking...</span>';
+
+            const formData = new FormData(form);
+
+            let fullResponse = "";
+
+            try {
+
+                const response = await fetch(
+                    "/AI/Stream",
+                    {
+                        method: "POST",
+                        body: formData
+                    });
+
+                if (!response.ok) {
+                    throw new Error("Something went wrong.");
+                }
+
+                const reader =
+                    response.body.getReader();
+
+                const decoder =
+                    new TextDecoder();
+
+                while (true) {
+
+                    const { value, done } =
+                        await reader.read();
+
+                    if (done) {
+                        break;
+                    }
+
+                    const chunk =
+                        decoder.decode(value, {
+                            stream: true
+                        });
+
+                    const lines =
+                        chunk.split("\n");
+
+                    for (const line of lines) {
+
+                        if (!line.startsWith("data:")) {
+                            continue;
+                        }
+
+                        const json =
+                            line.substring(5).trim();
+
+                        if (!json) {
+                            continue;
+                        }
+
+                        const data =
+                            JSON.parse(json);
+
+                        fullResponse += data.text;
+
+                        responseBox.innerHTML =
+                            marked.parse(fullResponse);
+                    }
+                }
+
+                responseBox.innerHTML =
+                    marked.parse(fullResponse);
+
+            }
+            catch (error) {
+
+                responseBox.innerHTML = `
+                    <div style="
+                        padding: 14px;
+                        border-radius: 12px;
+                        background: #fff1ef;
+                        color: #a64c3c;
+                        font-size: 12px;">
+                        Sorry, something went wrong.
+                    </div>
+                `;
+            }
+            finally {
+
+                askButton.disabled = false;
+
+                askButton.innerHTML =
+                    '<i class="bi bi-stars"></i><span>Ask AI</span>';
+            }
+
+        });
+
+    </script>
+}

@@ -1,0 +1,1271 @@
+﻿@model SmartTaskManager.Models.TaskItem
+
+@{
+    ViewData["Title"] = "Task Details";
+}
+
+<div class="task-details-page">
+
+    <!-- Header -->
+    <div class="details-header">
+
+        <div>
+            <span class="details-eyebrow">
+                TASK DETAILS
+            </span>
+
+            <h2>
+                @Model.Title
+            </h2>
+
+            <p>
+                Review the task information and activity.
+            </p>
+        </div>
+
+        <div class="details-actions">
+
+            <a asp-action="Edit"
+               asp-route-id="@Model.Id"
+               class="btn btn-primary">
+
+                <i class="bi bi-pencil"></i>
+                Edit Task
+
+            </a>
+
+            <a asp-action="Delete"
+               asp-route-id="@Model.Id"
+               class="details-delete-btn">
+
+                <i class="bi bi-trash3"></i>
+                Delete
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- Main Task Card -->
+    <div class="row g-4 mb-4">
+
+        <div class="col-lg-8">
+
+            <div class="details-card task-main-card">
+
+                <div class="task-main-top">
+
+                    <div class="detail-status
+                                status-@Model.Status.ToString().ToLower()">
+
+                        @if (Model.Status == SmartTaskManager.Models.TaskStatus.Completed)
+                        {
+                            <i class="bi bi-check-circle-fill"></i>
+                        }
+                        else if (Model.Status == SmartTaskManager.Models.TaskStatus.InProgress)
+                        {
+                            <i class="bi bi-arrow-repeat"></i>
+                        }
+                        else if (Model.Status == SmartTaskManager.Models.TaskStatus.Cancelled)
+                        {
+                            <i class="bi bi-x-circle-fill"></i>
+                        }
+                        else
+                        {
+                            <i class="bi bi-clock-fill"></i>
+                        }
+
+                        @Model.Status
+
+                    </div>
+
+
+                    <span class="detail-priority
+                                 priority-@Model.Priority.ToString().ToLower()">
+
+                        @Model.Priority Priority
+
+                    </span>
+
+                </div>
+
+
+                <div class="task-description-section">
+
+                    <span class="detail-label">
+                        DESCRIPTION
+                    </span>
+
+                    @if (!string.IsNullOrWhiteSpace(Model.Description))
+                    {
+                        <p class="task-description">
+                            @Model.Description
+                        </p>
+                    }
+                    else
+                    {
+                        <p class="task-description empty-description">
+                            No description was added for this task.
+                        </p>
+                    }
+
+                </div>
+
+
+                <div class="task-meta-grid">
+
+                    <div class="task-meta-item">
+
+                        <div class="meta-icon">
+                            <i class="bi bi-folder2-open"></i>
+                        </div>
+
+                        <div>
+                            <span class="meta-label">
+                                CATEGORY
+                            </span>
+
+                            <strong>
+                                @(Model.Category?.Name ?? "No category")
+                            </strong>
+                        </div>
+
+                    </div>
+
+
+                    <div class="task-meta-item">
+
+                        <div class="meta-icon">
+                            <i class="bi bi-calendar3"></i>
+                        </div>
+
+                        <div>
+                            <span class="meta-label">
+                                DUE DATE
+                            </span>
+
+                            <strong>
+                                @(Model.DueDate.HasValue
+                                    ? Model.DueDate.Value.ToLocalTime().ToString("MMM dd, yyyy")
+                                    : "No due date")
+                            </strong>
+                        </div>
+
+                    </div>
+
+
+                    <div class="task-meta-item">
+
+                        <div class="meta-icon">
+                            <i class="bi bi-calendar-plus"></i>
+                        </div>
+
+                        <div>
+                            <span class="meta-label">
+                                CREATED
+                            </span>
+
+                            <strong>
+                                @Model.CreatedAt.ToLocalTime().ToString("MMM dd, yyyy")
+                            </strong>
+                        </div>
+
+                    </div>
+
+
+                    @if (Model.CompletedAt.HasValue)
+                    {
+                        <div class="task-meta-item">
+
+                            <div class="meta-icon completed-meta-icon">
+                                <i class="bi bi-check2-circle"></i>
+                            </div>
+
+                            <div>
+                                <span class="meta-label">
+                                    COMPLETED
+                                </span>
+
+                                <strong>
+                                    @Model.CompletedAt.Value.ToLocalTime().ToString("MMM dd, yyyy")
+                                </strong>
+                            </div>
+
+                        </div>
+                    }
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Task Summary -->
+        <div class="col-lg-4">
+
+            <div class="details-card summary-card">
+
+                <span class="details-eyebrow">
+                    TASK OVERVIEW
+                </span>
+
+                <h3>
+                    Quick Summary
+                </h3>
+
+
+                <div class="summary-row">
+
+                    <span>
+                        Status
+                    </span>
+
+                    <strong>
+                        @Model.Status
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-row">
+
+                    <span>
+                        Priority
+                    </span>
+
+                    <strong>
+                        @Model.Priority
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-row">
+
+                    <span>
+                        Category
+                    </span>
+
+                    <strong>
+                        @(Model.Category?.Name ?? "—")
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-row">
+
+                    <span>
+                        Comments
+                    </span>
+
+                    <strong>
+                        @Model.Comments.Count
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-divider"></div>
+
+
+                <a asp-action="Index"
+                   class="back-tasks-link">
+
+                    <i class="bi bi-arrow-left"></i>
+
+                    Back to My Tasks
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Comments -->
+    <div class="details-card comments-card">
+
+        <div class="comments-header">
+
+            <div>
+
+                <span class="details-eyebrow">
+                    ACTIVITY
+                </span>
+
+                <h3>
+                    Comments
+                </h3>
+
+            </div>
+
+            <span class="comments-count">
+                @Model.Comments.Count
+            </span>
+
+        </div>
+
+
+        @if (TempData["CommentError"] != null)
+        {
+            <div class="comment-error">
+
+                <i class="bi bi-exclamation-circle"></i>
+
+                @TempData["CommentError"]
+
+            </div>
+        }
+
+
+        @if (Model.Comments.Any())
+        {
+            <div class="comments-list">
+
+                @foreach (var comment in Model.Comments.OrderByDescending(c => c.CreatedAt))
+                {
+                    <div class="comment-item">
+
+                        <div class="comment-avatar">
+                            <i class="bi bi-person"></i>
+                        </div>
+
+
+                        <div class="comment-content">
+
+                            <div class="comment-top">
+
+                                <span class="comment-author">
+                                    You
+                                </span>
+
+                                <span class="comment-date">
+                                    @comment.CreatedAt.ToLocalTime().ToString("MMM dd, yyyy · hh:mm tt")
+                                </span>
+
+                            </div>
+
+
+                            <p>
+                                @comment.Content
+                            </p>
+
+
+                            <form asp-controller="Comments"
+                                  asp-action="Delete"
+                                  method="post">
+
+                                <input type="hidden"
+                                       name="id"
+                                       value="@comment.Id" />
+
+                                <button type="submit"
+                                        class="comment-delete">
+
+                                    <i class="bi bi-trash3"></i>
+
+                                    Delete
+
+                                </button>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+                }
+
+            </div>
+        }
+        else
+        {
+            <div class="comments-empty">
+
+                <div class="comments-empty-icon">
+                    <i class="bi bi-chat-left-text"></i>
+                </div>
+
+                <h4>
+                    No comments yet
+                </h4>
+
+                <p>
+                    Add a comment to keep track of your thoughts and updates.
+                </p>
+
+            </div>
+        }
+
+
+        <!-- Add Comment -->
+        <div class="add-comment-section">
+
+            <div class="add-comment-header">
+
+                <div class="add-comment-icon">
+                    <i class="bi bi-plus-lg"></i>
+                </div>
+
+                <div>
+
+                    <strong>
+                        Add a Comment
+                    </strong>
+
+                    <span>
+                        Share an update or note about this task.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <form asp-controller="Comments"
+                  asp-action="Create"
+                  method="post">
+
+                <input type="hidden"
+                       name="taskItemId"
+                       value="@Model.Id" />
+
+                <textarea name="content"
+                          class="comment-input"
+                          rows="3"
+                          placeholder="Write your comment..."></textarea>
+
+
+                <div class="comment-submit-row">
+
+                    <button type="submit"
+                            class="btn btn-primary">
+
+                        <i class="bi bi-send"></i>
+
+                        Add Comment
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<style>
+
+    /* ==============================
+       Task Details
+    ============================== */
+
+    .task-details-page {
+        width: 100%;
+    }
+
+
+    /* ==============================
+       Header
+    ============================== */
+
+    .details-header {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+
+        gap: 25px;
+
+        margin-bottom: 28px;
+    }
+
+
+    .details-eyebrow {
+        display: block;
+
+        color: var(--green-700);
+
+        font-size: 10px;
+        font-weight: 800;
+
+        letter-spacing: 1.8px;
+    }
+
+
+    .details-header h2 {
+        margin: 7px 0 5px;
+
+        color: var(--green-950);
+
+        font-size: 34px;
+        font-weight: 800;
+
+        letter-spacing: -1px;
+    }
+
+
+    .details-header p {
+        margin: 0;
+
+        color: var(--text-muted);
+
+        font-size: 13px;
+    }
+
+
+    .details-actions {
+        display: flex;
+        align-items: center;
+
+        gap: 8px;
+    }
+
+
+    .details-actions .btn {
+        display: inline-flex;
+        align-items: center;
+
+        gap: 7px;
+
+        padding: 11px 17px;
+    }
+
+
+    .details-delete-btn {
+        display: inline-flex;
+        align-items: center;
+
+        gap: 7px;
+
+        padding: 11px 16px;
+
+        border-radius: 12px;
+
+        background: #fff1ef;
+
+        color: #b05245;
+
+        text-decoration: none;
+
+        font-size: 12px;
+        font-weight: 700;
+
+        transition: var(--transition);
+    }
+
+
+    .details-delete-btn:hover {
+        background: #ffe5e1;
+
+        color: #9d4035;
+
+        transform: translateY(-2px);
+    }
+
+
+    /* ==============================
+       Cards
+    ============================== */
+
+    .details-card {
+        height: 100%;
+
+        padding: 28px;
+
+        border-radius: 22px;
+
+        background:
+            rgba(255, 255, 255, 0.90);
+
+        border: 1px solid var(--border);
+
+        box-shadow: var(--shadow-sm);
+
+        backdrop-filter: blur(12px);
+    }
+
+
+    /* ==============================
+       Main Task
+    ============================== */
+
+    .task-main-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        gap: 15px;
+
+        padding-bottom: 24px;
+
+        border-bottom:
+            1px solid rgba(12, 91, 62, 0.08);
+    }
+
+
+    .detail-status {
+        display: inline-flex;
+        align-items: center;
+
+        gap: 7px;
+
+        padding: 7px 11px;
+
+        border-radius: 999px;
+
+        font-size: 10px;
+        font-weight: 800;
+    }
+
+
+    .detail-status.status-pending {
+        color: #8c6916;
+        background: #fff6d9;
+    }
+
+
+    .detail-status.status-inprogress {
+        color: #2468a6;
+        background: #e5f2ff;
+    }
+
+
+    .detail-status.status-completed {
+        color: var(--green-700);
+        background: var(--green-100);
+    }
+
+
+    .detail-status.status-cancelled {
+        color: #a64c5d;
+        background: #ffe8ed;
+    }
+
+
+    .detail-priority {
+        padding: 7px 11px;
+
+        border-radius: 999px;
+
+        font-size: 10px;
+        font-weight: 800;
+    }
+
+
+    .task-description-section {
+        padding: 25px 0;
+    }
+
+
+    .detail-label,
+    .meta-label {
+        display: block;
+
+        margin-bottom: 8px;
+
+        color: var(--text-muted);
+
+        font-size: 9px;
+        font-weight: 800;
+
+        letter-spacing: 1.2px;
+    }
+
+
+    .task-description {
+        margin: 0;
+
+        color: var(--text-main);
+
+        font-size: 14px;
+
+        line-height: 1.8;
+    }
+
+
+    .empty-description {
+        color: #9aa8a2;
+
+        font-style: italic;
+    }
+
+
+    /* ==============================
+       Meta Grid
+    ============================== */
+
+    .task-meta-grid {
+        display: grid;
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap: 15px;
+
+        padding-top: 22px;
+
+        border-top:
+            1px solid rgba(12, 91, 62, 0.08);
+    }
+
+
+    .task-meta-item {
+        display: flex;
+        align-items: center;
+
+        gap: 11px;
+
+        padding: 13px;
+
+        border-radius: 14px;
+
+        background: var(--surface-soft);
+    }
+
+
+    .meta-icon {
+        width: 37px;
+        height: 37px;
+
+        flex-shrink: 0;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 11px;
+
+        background: var(--green-100);
+
+        color: var(--green-700);
+
+        font-size: 15px;
+    }
+
+
+    .completed-meta-icon {
+        background: var(--green-100);
+
+        color: var(--green-600);
+    }
+
+
+    .task-meta-item strong {
+        display: block;
+
+        color: var(--text-main);
+
+        font-size: 11px;
+        font-weight: 700;
+    }
+
+
+    /* ==============================
+       Summary
+    ============================== */
+
+    .summary-card h3 {
+        margin: 6px 0 22px;
+
+        color: var(--green-950);
+
+        font-size: 20px;
+        font-weight: 750;
+    }
+
+
+    .summary-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        gap: 15px;
+
+        padding: 13px 0;
+
+        border-bottom:
+            1px solid rgba(12, 91, 62, 0.07);
+    }
+
+
+    .summary-row span {
+        color: var(--text-muted);
+
+        font-size: 12px;
+    }
+
+
+    .summary-row strong {
+        color: var(--text-main);
+
+        font-size: 12px;
+        font-weight: 700;
+
+        text-align: right;
+    }
+
+
+    .summary-divider {
+        height: 1px;
+
+        margin: 10px 0 18px;
+
+        background:
+            rgba(12, 91, 62, 0.08);
+    }
+
+
+    .back-tasks-link {
+        display: inline-flex;
+        align-items: center;
+
+        gap: 7px;
+
+        color: var(--green-700);
+
+        text-decoration: none;
+
+        font-size: 12px;
+        font-weight: 700;
+
+        transition: var(--transition);
+    }
+
+
+    .back-tasks-link:hover {
+        color: var(--green-900);
+
+        transform: translateX(-3px);
+    }
+
+
+    /* ==============================
+       Comments
+    ============================== */
+
+    .comments-card {
+        height: auto;
+    }
+
+
+    .comments-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        padding-bottom: 20px;
+
+        border-bottom:
+            1px solid rgba(12, 91, 62, 0.08);
+    }
+
+
+    .comments-header h3 {
+        margin: 5px 0 0;
+
+        color: var(--green-950);
+
+        font-size: 20px;
+        font-weight: 750;
+    }
+
+
+    .comments-count {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        min-width: 30px;
+        height: 30px;
+
+        padding: 0 9px;
+
+        border-radius: 999px;
+
+        background: var(--green-100);
+
+        color: var(--green-700);
+
+        font-size: 11px;
+        font-weight: 800;
+    }
+
+
+    .comment-error {
+        display: flex;
+        align-items: center;
+
+        gap: 8px;
+
+        margin-top: 18px;
+
+        padding: 11px 13px;
+
+        border-radius: 12px;
+
+        background: #fff1ef;
+
+        color: #a64c3c;
+
+        font-size: 12px;
+    }
+
+
+    .comments-list {
+        display: flex;
+        flex-direction: column;
+
+        gap: 5px;
+
+        margin-top: 20px;
+    }
+
+
+    .comment-item {
+        display: flex;
+
+        gap: 13px;
+
+        padding: 17px;
+
+        border-radius: 15px;
+
+        background: var(--surface-soft);
+
+        border: 1px solid transparent;
+
+        transition: var(--transition);
+    }
+
+
+    .comment-item:hover {
+        background: var(--green-50);
+
+        border-color: var(--green-200);
+    }
+
+
+    .comment-avatar {
+        width: 38px;
+        height: 38px;
+
+        flex-shrink: 0;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 12px;
+
+        background: var(--green-100);
+
+        color: var(--green-700);
+    }
+
+
+    .comment-content {
+        flex: 1;
+
+        min-width: 0;
+    }
+
+
+    .comment-top {
+        display: flex;
+        align-items: center;
+
+        gap: 10px;
+
+        margin-bottom: 6px;
+    }
+
+
+    .comment-author {
+        color: var(--text-main);
+
+        font-size: 11px;
+        font-weight: 800;
+    }
+
+
+    .comment-date {
+        color: var(--text-muted);
+
+        font-size: 10px;
+    }
+
+
+    .comment-content > p {
+        margin: 0 0 8px;
+
+        color: var(--text-main);
+
+        font-size: 12px;
+
+        line-height: 1.6;
+    }
+
+
+    .comment-delete {
+        padding: 0;
+
+        border: none;
+
+        background: none;
+
+        color: #a96b62;
+
+        font-family: inherit;
+
+        font-size: 10px;
+        font-weight: 700;
+
+        cursor: pointer;
+
+        transition: var(--transition);
+    }
+
+
+    .comment-delete:hover {
+        color: #9d4035;
+    }
+
+
+    .comment-delete i {
+        margin-right: 4px;
+    }
+
+
+    /* ==============================
+       Empty Comments
+    ============================== */
+
+    .comments-empty {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        padding: 35px 20px;
+
+        text-align: center;
+    }
+
+
+    .comments-empty-icon {
+        width: 55px;
+        height: 55px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        margin-bottom: 12px;
+
+        border-radius: 17px;
+
+        background: var(--green-100);
+
+        color: var(--green-600);
+
+        font-size: 22px;
+    }
+
+
+    .comments-empty h4 {
+        margin: 0 0 5px;
+
+        color: var(--green-950);
+
+        font-size: 16px;
+        font-weight: 750;
+    }
+
+
+    .comments-empty p {
+        max-width: 400px;
+
+        margin: 0;
+
+        color: var(--text-muted);
+
+        font-size: 11px;
+
+        line-height: 1.6;
+    }
+
+
+    /* ==============================
+       Add Comment
+    ============================== */
+
+    .add-comment-section {
+        margin-top: 25px;
+
+        padding-top: 25px;
+
+        border-top:
+            1px solid rgba(12, 91, 62, 0.08);
+    }
+
+
+    .add-comment-header {
+        display: flex;
+        align-items: center;
+
+        gap: 11px;
+
+        margin-bottom: 13px;
+    }
+
+
+    .add-comment-icon {
+        width: 36px;
+        height: 36px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 11px;
+
+        background: var(--green-100);
+
+        color: var(--green-700);
+
+        font-size: 14px;
+    }
+
+
+    .add-comment-header strong {
+        display: block;
+
+        color: var(--text-main);
+
+        font-size: 12px;
+        font-weight: 750;
+    }
+
+
+    .add-comment-header span {
+        display: block;
+
+        margin-top: 2px;
+
+        color: var(--text-muted);
+
+        font-size: 10px;
+    }
+
+
+    .comment-input {
+        width: 100%;
+
+        resize: vertical;
+
+        min-height: 90px;
+
+        padding: 13px;
+
+        border-radius: 13px;
+
+        border:
+            1px solid rgba(12, 91, 62, 0.13);
+
+        background: var(--surface-soft);
+
+        color: var(--text-main);
+
+        font-family: inherit;
+
+        font-size: 12px;
+
+        outline: none;
+
+        transition: var(--transition);
+    }
+
+
+    .comment-input:focus {
+        border-color: var(--green-500);
+
+        background: white;
+
+        box-shadow:
+            0 0 0 4px rgba(32, 184, 122, 0.10);
+    }
+
+
+    .comment-submit-row {
+        display: flex;
+        justify-content: flex-end;
+
+        margin-top: 10px;
+    }
+
+
+    .comment-submit-row .btn {
+        display: inline-flex;
+        align-items: center;
+
+        gap: 7px;
+
+        padding: 10px 16px;
+
+        font-size: 12px;
+    }
+
+
+    /* ==============================
+       Responsive
+    ============================== */
+
+    @@media (max-width: 767px) {
+
+        .details-header {
+            align-items: flex-start;
+
+            flex-direction: column;
+        }
+
+        .details-actions {
+            width: 100%;
+        }
+
+        .details-actions .btn,
+        .details-delete-btn {
+            flex: 1;
+
+            justify-content: center;
+        }
+
+        .details-header h2 {
+            font-size: 29px;
+        }
+
+        .details-card {
+            padding: 22px;
+        }
+
+        .task-meta-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .comment-top {
+            flex-direction: column;
+            align-items: flex-start;
+
+            gap: 3px;
+        }
+
+    }
+
+</style>

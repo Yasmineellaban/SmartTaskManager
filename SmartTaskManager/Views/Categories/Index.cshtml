@@ -1,0 +1,791 @@
+﻿@model IEnumerable<SmartTaskManager.Models.Category>
+
+@{
+    ViewData["Title"] = "Categories";
+}
+
+<div class="categories-page">
+
+    <div class="categories-header">
+
+        <div>
+            <span class="categories-eyebrow">
+                ORGANIZATION
+            </span>
+
+            <h2>
+                Categories
+            </h2>
+
+            <p>
+                Organize your tasks into clear and meaningful groups.
+            </p>
+        </div>
+
+        <a asp-action="Create"
+           class="btn btn-primary create-category-btn">
+
+            <i class="bi bi-plus-lg"></i>
+
+            Create Category
+
+        </a>
+
+    </div>
+
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="category-alert">
+
+            <i class="bi bi-exclamation-circle"></i>
+
+            <span>
+                @TempData["ErrorMessage"]
+            </span>
+
+        </div>
+    }
+
+
+    @if (!Model.Any())
+    {
+        <div class="empty-categories">
+
+            <div class="empty-icon">
+                <i class="bi bi-folder2-open"></i>
+            </div>
+
+            <h3>
+                No categories yet
+            </h3>
+
+            <p>
+                Create your first category to start organizing your tasks.
+            </p>
+
+            <a asp-action="Create"
+               class="btn btn-primary">
+
+                <i class="bi bi-plus-lg"></i>
+
+                Create Category
+
+            </a>
+
+        </div>
+    }
+    else
+    {
+        <div class="categories-summary">
+
+            <div class="summary-left">
+
+                <div class="summary-icon">
+                    <i class="bi bi-folder-fill"></i>
+                </div>
+
+                <div>
+                    <span>
+                        YOUR CATEGORIES
+                    </span>
+
+                    <strong>
+                        @Model.Count() categories
+                    </strong>
+                </div>
+
+            </div>
+
+            <span class="summary-status">
+                <i class="bi bi-check-circle-fill"></i>
+                Organized
+            </span>
+
+        </div>
+
+
+        <div class="categories-grid">
+
+            @foreach (var category in Model)
+            {
+                <div class="category-card">
+
+                    <div class="category-card-top">
+
+                        <div class="category-icon">
+                            <i class="bi bi-folder-fill"></i>
+                        </div>
+
+                        <div class="category-actions">
+
+                            <a asp-action="Edit"
+                               asp-route-id="@category.Id"
+                               class="category-action edit-action"
+                               title="Edit Category">
+
+                                <i class="bi bi-pencil"></i>
+
+                            </a>
+
+                            <a asp-action="Delete"
+                               asp-route-id="@category.Id"
+                               class="category-action delete-action"
+                               title="Delete Category">
+
+                                <i class="bi bi-trash3"></i>
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="category-content">
+
+                        <h3>
+                            @category.Name
+                        </h3>
+
+                        @if (!string.IsNullOrWhiteSpace(category.Description))
+                        {
+                            <p>
+                                @category.Description
+                            </p>
+                        }
+                        else
+                        {
+                            <p class="no-description">
+                                No description added.
+                            </p>
+                        }
+
+                    </div>
+
+
+                    <div class="category-footer">
+
+                        <span>
+                            <i class="bi bi-check2-square"></i>
+
+                            @category.Tasks.Count task(s)
+                        </span>
+
+                        @* <span class="category-arrow">
+                            <i class="bi bi-arrow-up-right"></i>
+                        </span> *@
+
+                    </div>
+
+                </div>
+            }
+
+        </div>
+    }
+
+</div>
+
+
+<style>
+
+    .categories-page {
+        width: 100%;
+    }
+
+
+    /* ==============================
+       Header
+    ============================== */
+
+    .categories-header {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+
+        gap: 25px;
+
+        margin-bottom: 28px;
+    }
+
+
+    .categories-eyebrow {
+        display: block;
+
+        color: var(--green-700);
+
+        font-size: 10px;
+        font-weight: 800;
+
+        letter-spacing: 1.8px;
+    }
+
+
+    .categories-header h2 {
+        margin: 7px 0 5px;
+
+        color: var(--green-950);
+
+        font-size: 34px;
+        font-weight: 800;
+
+        letter-spacing: -1px;
+    }
+
+
+    .categories-header p {
+        margin: 0;
+
+        color: var(--text-muted);
+
+        font-size: 13px;
+    }
+
+
+    .create-category-btn {
+        display: inline-flex;
+        align-items: center;
+
+        gap: 7px;
+
+        white-space: nowrap;
+    }
+
+
+    /* ==============================
+       Alert
+    ============================== */
+
+    .category-alert {
+        display: flex;
+        align-items: center;
+
+        gap: 9px;
+
+        margin-bottom: 20px;
+
+        padding: 13px 15px;
+
+        border-radius: 13px;
+
+        background: #fff1ef;
+
+        border:
+            1px solid rgba(196, 91, 77, 0.10);
+
+        color: #a64c3c;
+
+        font-size: 11px;
+    }
+
+
+    .category-alert i {
+        font-size: 14px;
+    }
+
+
+    /* ==============================
+       Summary
+    ============================== */
+
+    .categories-summary {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        margin-bottom: 18px;
+
+        padding: 15px 17px;
+
+        border-radius: 16px;
+
+        background:
+            rgba(255, 255, 255, 0.82);
+
+        border:
+            1px solid var(--border);
+
+        box-shadow: var(--shadow-sm);
+    }
+
+
+    .summary-left {
+        display: flex;
+        align-items: center;
+
+        gap: 11px;
+    }
+
+
+    .summary-icon {
+        width: 38px;
+        height: 38px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 11px;
+
+        background: var(--green-100);
+
+        color: var(--green-700);
+
+        font-size: 14px;
+    }
+
+
+    .summary-left span {
+        display: block;
+
+        margin-bottom: 2px;
+
+        color: var(--text-muted);
+
+        font-size: 8px;
+        font-weight: 800;
+
+        letter-spacing: 1.2px;
+    }
+
+
+    .summary-left strong {
+        display: block;
+
+        color: var(--green-950);
+
+        font-size: 13px;
+        font-weight: 750;
+    }
+
+
+    .summary-status {
+        display: inline-flex;
+        align-items: center;
+
+        gap: 5px;
+
+        padding: 7px 10px;
+
+        border-radius: 20px;
+
+        background: var(--green-100);
+
+        color: var(--green-700);
+
+        font-size: 9px;
+        font-weight: 750;
+    }
+
+
+    .summary-status i {
+        font-size: 9px;
+    }
+
+
+    /* ==============================
+       Grid
+    ============================== */
+
+    .categories-grid {
+        display: grid;
+
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
+
+        gap: 18px;
+    }
+
+
+    /* ==============================
+       Category Card
+    ============================== */
+
+    .category-card {
+        position: relative;
+
+        display: flex;
+        flex-direction: column;
+
+        min-height: 210px;
+
+        padding: 20px;
+
+        border-radius: 20px;
+
+        background:
+            rgba(255, 255, 255, 0.90);
+
+        border:
+            1px solid var(--border);
+
+        box-shadow: var(--shadow-sm);
+
+        overflow: hidden;
+
+        transition:
+            transform var(--transition),
+            box-shadow var(--transition),
+            border-color var(--transition);
+    }
+
+
+    .category-card::before {
+        content: "";
+
+        position: absolute;
+
+        left: 0;
+        top: 0;
+
+        width: 100%;
+        height: 3px;
+
+        background:
+            linear-gradient(
+                90deg,
+                var(--green-700),
+                var(--green-400)
+            );
+
+        transform: scaleX(0);
+
+        transform-origin: left;
+
+        transition: transform var(--transition);
+    }
+
+
+    .category-card:hover {
+        transform: translateY(-5px);
+
+        box-shadow: var(--shadow-md);
+
+        border-color:
+            rgba(18, 166, 111, 0.18);
+    }
+
+
+    .category-card:hover::before {
+        transform: scaleX(1);
+    }
+
+
+    .category-card-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+
+    .category-icon {
+        width: 43px;
+        height: 43px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 13px;
+
+        background:
+            linear-gradient(
+                135deg,
+                var(--green-100),
+                var(--green-50)
+            );
+
+        color: var(--green-700);
+
+        font-size: 17px;
+    }
+
+
+    .category-actions {
+        display: flex;
+
+        gap: 6px;
+    }
+
+
+    .category-action {
+        width: 31px;
+        height: 31px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 9px;
+
+        text-decoration: none;
+
+        font-size: 11px;
+
+        transition: var(--transition);
+    }
+
+
+    .edit-action {
+        background: var(--green-50);
+
+        color: var(--green-700);
+    }
+
+
+    .edit-action:hover {
+        background: var(--green-100);
+
+        color: var(--green-900);
+
+        transform: translateY(-2px);
+    }
+
+
+    .delete-action {
+        background: #fff5f3;
+
+        color: #b75a4d;
+    }
+
+
+    .delete-action:hover {
+        background: #ffebe8;
+
+        color: #9d4338;
+
+        transform: translateY(-2px);
+    }
+
+
+    /* ==============================
+       Content
+    ============================== */
+
+    .category-content {
+        flex: 1;
+
+        padding-top: 19px;
+    }
+
+
+    .category-content h3 {
+        margin: 0 0 7px;
+
+        color: var(--green-950);
+
+        font-size: 17px;
+        font-weight: 750;
+
+        word-break: break-word;
+    }
+
+
+    .category-content p {
+        display: -webkit-box;
+
+        margin: 0;
+
+        color: var(--text-muted);
+
+        font-size: 11px;
+
+        line-height: 1.65;
+
+        overflow: hidden;
+
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
+    }
+
+
+    .category-content .no-description {
+        color: #a5b1ac;
+
+        font-style: italic;
+    }
+
+
+    /* ==============================
+       Footer
+    ============================== */
+
+    .category-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        padding-top: 14px;
+
+        margin-top: 15px;
+
+        border-top:
+            1px solid rgba(12, 91, 62, 0.07);
+
+        color: var(--text-muted);
+
+        font-size: 9px;
+        font-weight: 650;
+    }
+
+
+    .category-footer > span:first-child {
+        display: inline-flex;
+        align-items: center;
+
+        gap: 5px;
+    }
+
+
+    .category-footer i {
+        color: var(--green-600);
+    }
+
+
+    .category-arrow {
+        width: 27px;
+        height: 27px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 8px;
+
+        background: var(--green-50);
+
+        color: var(--green-600);
+
+        transition: var(--transition);
+    }
+
+
+    .category-card:hover .category-arrow {
+        background: var(--green-100);
+
+        transform: translate(2px, -2px);
+    }
+
+
+    /* ==============================
+       Empty State
+    ============================== */
+
+    .empty-categories {
+        padding: 65px 25px;
+
+        text-align: center;
+
+        border-radius: 22px;
+
+        background:
+            rgba(255, 255, 255, 0.82);
+
+        border:
+            1px dashed rgba(12, 91, 62, 0.16);
+
+        box-shadow: var(--shadow-sm);
+    }
+
+
+    .empty-icon {
+        width: 65px;
+        height: 65px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        margin: 0 auto 18px;
+
+        border-radius: 20px;
+
+        background: var(--green-100);
+
+        color: var(--green-700);
+
+        font-size: 25px;
+    }
+
+
+    .empty-categories h3 {
+        margin: 0 0 7px;
+
+        color: var(--green-950);
+
+        font-size: 20px;
+        font-weight: 750;
+    }
+
+
+    .empty-categories p {
+        margin: 0 auto 20px;
+
+        color: var(--text-muted);
+
+        font-size: 11px;
+    }
+
+
+    .empty-categories .btn {
+        display: inline-flex;
+        align-items: center;
+
+        gap: 7px;
+    }
+
+
+    /* ==============================
+       Responsive
+    ============================== */
+
+    @@media (max-width: 1100px) {
+
+        .categories-grid {
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
+        }
+
+    }
+
+
+    @@media (max-width: 767px) {
+
+        .categories-header {
+            align-items: flex-start;
+
+            flex-direction: column;
+        }
+
+
+        .categories-header h2 {
+            font-size: 29px;
+        }
+
+
+        .create-category-btn {
+            width: 100%;
+
+            justify-content: center;
+        }
+
+
+        .categories-grid {
+            grid-template-columns: 1fr;
+        }
+
+
+        .categories-summary {
+            align-items: flex-start;
+
+            gap: 12px;
+        }
+
+
+        .summary-status {
+            flex-shrink: 0;
+        }
+
+    }
+
+</style>

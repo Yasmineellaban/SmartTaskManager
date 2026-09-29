@@ -1,0 +1,241 @@
+﻿@model SmartTaskManager.Models.Category
+
+@{
+    ViewData["Title"] = "Delete Category";
+}
+
+<div class="delete-category-page">
+
+    <div class="delete-category-card">
+
+        <div class="delete-icon">
+            <i class="bi bi-trash3"></i>
+        </div>
+
+        <span class="page-eyebrow">CATEGORY MANAGEMENT</span>
+
+        <h1>Delete Category?</h1>
+
+        <p class="delete-message">
+            Are you sure you want to delete this category?
+            This action cannot be undone.
+        </p>
+
+        <div class="category-preview">
+
+            <div class="preview-icon">
+                <i class="bi bi-folder"></i>
+            </div>
+
+            <div class="preview-content">
+                <span class="preview-label">CATEGORY</span>
+
+                <h2>@Model.Name</h2>
+
+                @if (!string.IsNullOrWhiteSpace(Model.Description))
+                {
+                    <p>@Model.Description</p>
+                }
+            </div>
+
+        </div>
+
+        <div class="warning-box">
+            <i class="bi bi-exclamation-triangle"></i>
+
+            <span>
+                Deleting this category is permanent.
+            </span>
+        </div>
+
+        <form asp-action="Delete" method="post">
+
+            <input type="hidden" asp-for="Id" />
+
+            <div class="delete-actions">
+
+                <a asp-action="Index"
+                   class="btn btn-light">
+                    Keep Category
+                </a>
+
+                <button type="submit"
+                        class="btn btn-delete">
+                    <i class="bi bi-trash3"></i>
+                    Delete Category
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<style>
+    .delete-category-page {
+        min-height: calc(100vh - 170px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px 0;
+    }
+
+    .delete-category-card {
+        width: min(100%, 570px);
+        padding: 38px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-xl);
+        box-shadow: var(--shadow-lg);
+        text-align: center;
+    }
+
+    .delete-icon {
+        width: 62px;
+        height: 62px;
+        margin: 0 auto 18px;
+        border-radius: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #fff1ef;
+        color: #c45145;
+        font-size: 25px;
+    }
+
+    .delete-category-card .page-eyebrow {
+        display: block;
+        margin-bottom: 9px;
+        color: var(--green-700);
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 1.5px;
+    }
+
+    .delete-category-card h1 {
+        margin: 0 0 10px;
+        color: var(--text-main);
+        font-size: 27px;
+        font-weight: 750;
+    }
+
+    .delete-message {
+        max-width: 430px;
+        margin: 0 auto 25px;
+        color: var(--text-muted);
+        font-size: 13px;
+        line-height: 1.7;
+    }
+
+    .category-preview {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 17px;
+        margin-bottom: 16px;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        background: var(--surface-soft);
+        text-align: left;
+    }
+
+    .preview-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 13px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        background: var(--green-100);
+        color: var(--green-700);
+        font-size: 19px;
+    }
+
+    .preview-content {
+        min-width: 0;
+    }
+
+    .preview-label {
+        display: block;
+        margin-bottom: 3px;
+        color: var(--text-muted);
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 1px;
+    }
+
+    .preview-content h2 {
+        margin: 0;
+        color: var(--text-main);
+        font-size: 16px;
+        font-weight: 700;
+    }
+
+    .preview-content p {
+        margin: 4px 0 0;
+        color: var(--text-muted);
+        font-size: 11px;
+        line-height: 1.5;
+    }
+
+    .warning-box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        margin-bottom: 25px;
+        padding: 11px 14px;
+        border-radius: 11px;
+        background: #fff8ed;
+        color: #9a6a2f;
+        font-size: 11px;
+    }
+
+    .warning-box i {
+        font-size: 14px;
+    }
+
+    .delete-actions {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .btn-delete {
+        border: 0;
+        border-radius: 11px;
+        background: #c45145;
+        color: #fff;
+        padding: 10px 17px;
+        font-size: 12px;
+        font-weight: 600;
+        transition: var(--transition);
+    }
+
+    .btn-delete:hover {
+        background: #a83f35;
+        color: #fff;
+        transform: translateY(-1px);
+    }
+
+    @@media (max-width: 767px) {
+        .delete-category-card {
+            padding: 28px 20px;
+        }
+
+        .delete-category-card h1 {
+            font-size: 23px;
+        }
+
+        .delete-actions {
+            flex-direction: column-reverse;
+        }
+
+        .delete-actions .btn {
+            width: 100%;
+        }
+    }
+</style>

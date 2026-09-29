@@ -1,0 +1,298 @@
+﻿@model SmartTaskManager.Models.Category
+
+@{
+    ViewData["Title"] = "Edit Category";
+}
+
+<div class="page-header">
+    <div>
+        <span class="page-eyebrow">ORGANIZATION</span>
+        <h1 class="page-title">Edit Category</h1>
+        <p class="page-subtitle">
+            Update your category information and keep your workspace organized.
+        </p>
+    </div>
+
+    <a asp-action="Index" class="btn btn-light">
+        <i class="bi bi-arrow-left"></i>
+        Back to Categories
+    </a>
+</div>
+
+<div class="edit-category-layout">
+
+    <div class="category-form-card">
+
+        <div class="section-heading">
+            <div class="section-icon">
+                <i class="bi bi-pencil-square"></i>
+            </div>
+
+            <div>
+                <h2>Category Information</h2>
+                <p>Update the name or description of this category.</p>
+            </div>
+        </div>
+
+        <form asp-action="Edit" method="post">
+
+            <input type="hidden" asp-for="Id" />
+
+            <div asp-validation-summary="All"
+                 class="validation-summary"></div>
+
+            <div class="form-field">
+                <label asp-for="Name">Category Name</label>
+
+                <input asp-for="Name"
+                       class="form-control"
+                       placeholder="Enter category name" />
+
+                <span asp-validation-for="Name"
+                      class="text-danger"></span>
+            </div>
+
+            <div class="form-field">
+                <label asp-for="Description">Description</label>
+
+                <textarea asp-for="Description"
+                          class="form-control"
+                          rows="5"
+                          placeholder="Add a short description..."></textarea>
+
+                <span asp-validation-for="Description"
+                      class="text-danger"></span>
+            </div>
+
+            <div class="form-footer">
+
+                <a asp-action="Index"
+                   class="btn btn-light">
+                    Cancel
+                </a>
+
+                <button type="submit"
+                        class="btn btn-primary">
+                    <i class="bi bi-check2"></i>
+                    Save Changes
+                </button>
+
+            </div>
+
+        </form>
+    </div>
+
+    <div class="category-info-card">
+
+        <div class="info-icon">
+            <i class="bi bi-folder-check"></i>
+        </div>
+
+        <h3>Keep it organized</h3>
+
+        <p>
+            Update your category details whenever your
+            workflow changes.
+        </p>
+
+        <div class="info-line">
+            <i class="bi bi-check2"></i>
+            <span>Use a clear category name</span>
+        </div>
+
+        <div class="info-line">
+            <i class="bi bi-check2"></i>
+            <span>Keep the description meaningful</span>
+        </div>
+
+    </div>
+
+</div>
+
+<style>
+    .edit-category-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 300px;
+        gap: 24px;
+        align-items: start;
+    }
+
+    .category-form-card,
+    .category-info-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-xl);
+        box-shadow: var(--shadow-md);
+    }
+
+    .category-form-card {
+        padding: 30px;
+    }
+
+    .section-heading {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 28px;
+    }
+
+    .section-icon,
+    .info-icon {
+        width: 46px;
+        height: 46px;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--green-100);
+        color: var(--green-700);
+        font-size: 20px;
+        flex-shrink: 0;
+    }
+
+    .section-heading h2 {
+        margin: 0 0 4px;
+        color: var(--text-main);
+        font-size: 18px;
+        font-weight: 700;
+    }
+
+    .section-heading p {
+        margin: 0;
+        color: var(--text-muted);
+        font-size: 12px;
+    }
+
+    .form-field {
+        margin-bottom: 20px;
+    }
+
+    .form-field label {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--text-main);
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+    .form-control {
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        background: var(--surface-soft);
+        color: var(--text-main);
+        font-size: 13px;
+        padding: 12px 14px;
+        transition: var(--transition);
+    }
+
+    .form-control:focus {
+        border-color: var(--green-400);
+        background: var(--surface);
+        box-shadow: 0 0 0 4px rgba(32, 184, 122, 0.10);
+        outline: none;
+    }
+
+    textarea.form-control {
+        min-height: 125px;
+        resize: vertical;
+    }
+
+    .text-danger {
+        display: block;
+        margin-top: 5px;
+        color: #c45145;
+        font-size: 11px;
+    }
+
+    .validation-summary {
+        margin-bottom: 18px;
+        padding: 12px 14px;
+        border-radius: 12px;
+        background: #fff1ef;
+        color: #a64c3c;
+        font-size: 11px;
+    }
+
+    .validation-summary:empty,
+    .validation-summary.validation-summary-valid {
+        display: none;
+    }
+
+    .form-footer {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        margin-top: 28px;
+        padding-top: 20px;
+        border-top: 1px solid var(--border);
+    }
+
+    .category-info-card {
+        padding: 25px;
+    }
+
+    .category-info-card .info-icon {
+        margin-bottom: 18px;
+    }
+
+    .category-info-card h3 {
+        margin: 0 0 10px;
+        color: var(--text-main);
+        font-size: 18px;
+        font-weight: 700;
+    }
+
+    .category-info-card > p {
+        margin: 0 0 20px;
+        color: var(--text-muted);
+        font-size: 12px;
+        line-height: 1.7;
+    }
+
+    .info-line {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        padding: 11px 0;
+        border-top: 1px solid var(--border);
+        color: var(--text-main);
+        font-size: 11px;
+    }
+
+    .info-line i {
+        color: var(--green-600);
+        font-size: 15px;
+    }
+
+    @@media (max-width: 991px) {
+        .edit-category-layout {
+            grid-template-columns: 1fr;
+        }
+
+        .category-info-card {
+            display: none;
+        }
+    }
+
+    @@media (max-width: 767px) {
+        .category-form-card {
+            padding: 22px;
+        }
+
+        .page-header .btn {
+            display: none;
+        }
+
+        .form-footer {
+            flex-direction: column-reverse;
+        }
+
+        .form-footer .btn {
+            width: 100%;
+        }
+    }
+</style>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

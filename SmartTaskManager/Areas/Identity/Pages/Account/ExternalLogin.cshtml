@@ -1,0 +1,269 @@
+@page
+@model ExternalLoginModel
+
+@{
+ViewData["Title"] = "Register";
+}
+
+<div class="external-login-page">
+
+
+<div class="external-login-card">
+
+    <div class="external-icon">
+        <i class="bi bi-person-check"></i>
+    </div>
+
+    <span class="external-eyebrow">
+        ACCOUNT SETUP
+    </span>
+
+    <h1>Complete Registration</h1>
+
+    <p class="external-description">
+        You've successfully authenticated with
+        <strong>@Model.ProviderDisplayName</strong>.
+    </p>
+
+    <p class="external-description secondary">
+        Please enter an email address for SmartTask Manager
+        to finish setting up your account.
+    </p>
+
+    <form asp-page-handler="Confirmation"
+          asp-route-returnUrl="@Model.ReturnUrl"
+          method="post">
+
+        <div asp-validation-summary="ModelOnly"
+             class="validation-summary"
+             role="alert"></div>
+
+        <div class="form-field">
+
+            <label asp-for="Input.Email">
+                Email Address
+            </label>
+
+            <input asp-for="Input.Email"
+                   class="form-control"
+                   autocomplete="email"
+                   placeholder="Enter your email address" />
+
+            <span asp-validation-for="Input.Email"
+                  class="text-danger"></span>
+
+        </div>
+
+        <button type="submit"
+                class="btn btn-primary external-submit">
+
+            <i class="bi bi-check2-circle"></i>
+            Complete Registration
+
+        </button>
+
+    </form>
+
+</div>
+
+
+</div>
+
+<style>
+
+    .external-login-page {
+        min-height: calc(100vh - 180px);
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: 40px 20px;
+    }
+
+    .external-login-card {
+        width: 100%;
+        max-width: 470px;
+
+        padding: 42px 35px;
+
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-xl);
+
+        box-shadow: var(--shadow-lg);
+    }
+
+    .external-icon {
+        width: 64px;
+        height: 64px;
+
+        margin: 0 auto 20px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 19px;
+
+        background: var(--green-100);
+        color: var(--green-700);
+
+        font-size: 26px;
+    }
+
+    .external-eyebrow {
+        display: block;
+
+        margin-bottom: 8px;
+
+        text-align: center;
+
+        color: var(--green-700);
+
+        font-size: 9px;
+        font-weight: 800;
+
+        letter-spacing: 1.5px;
+    }
+
+    .external-login-card h1 {
+        margin: 0 0 10px;
+
+        text-align: center;
+
+        color: var(--text-main);
+
+        font-size: 25px;
+        font-weight: 750;
+    }
+
+    .external-description {
+        max-width: 360px;
+
+        margin: 0 auto 8px;
+
+        text-align: center;
+
+        color: var(--text-muted);
+
+        font-size: 12px;
+        line-height: 1.7;
+    }
+
+    .external-description.secondary {
+        margin-bottom: 25px;
+    }
+
+    .external-description strong {
+        color: var(--green-700);
+        font-weight: 700;
+    }
+
+    .form-field {
+        margin-bottom: 20px;
+    }
+
+    .form-field label {
+        display: block;
+
+        margin-bottom: 8px;
+
+        color: var(--text-main);
+
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+    .form-control {
+        width: 100%;
+
+        padding: 12px 14px;
+
+        border: 1px solid var(--border);
+        border-radius: 12px;
+
+        background: var(--surface-soft);
+        color: var(--text-main);
+
+        font-size: 13px;
+
+        transition: var(--transition);
+    }
+
+    .form-control:focus {
+        border-color: var(--green-400);
+        background: var(--surface);
+
+        box-shadow:
+            0 0 0 4px rgba(32, 184, 122, 0.10);
+
+        outline: none;
+    }
+
+    .text-danger {
+        display: block;
+
+        margin-top: 5px;
+
+        color: #c45145;
+
+        font-size: 11px;
+    }
+
+    .validation-summary {
+        margin-bottom: 18px;
+
+        padding: 12px 14px;
+
+        border-radius: 12px;
+
+        background: #fff1ef;
+
+        color: #a64c3c;
+
+        font-size: 11px;
+    }
+
+    .validation-summary:empty,
+    .validation-summary.validation-summary-valid {
+        display: none;
+    }
+
+    .external-submit {
+        width: 100%;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        gap: 8px;
+
+        margin-top: 8px;
+
+        padding: 12px 18px;
+
+        border-radius: 11px;
+
+        font-size: 11px;
+        font-weight: 700;
+    }
+
+    @@media (max-width: 767px) {
+
+        .external-login-page {
+            min-height: calc(100vh - 120px);
+
+            padding: 25px 15px;
+        }
+
+        .external-login-card {
+            padding: 35px 25px;
+        }
+
+    }
+
+</style>
+
+@section Scripts { <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,362 @@
+@page
+@model ResendEmailConfirmationModel
+
+@{
+ViewData["Title"] = "Resend Email Confirmation";
+}
+
+<div class="resend-page">
+
+
+<div class="resend-card">
+
+    <div class="resend-icon">
+        <i class="bi bi-envelope-arrow-up"></i>
+    </div>
+
+    <span class="resend-eyebrow">
+        ACCOUNT VERIFICATION
+    </span>
+
+    <h1>Confirm Your Email</h1>
+
+    <p>
+        Enter your email address and we'll send you a new
+        confirmation link.
+    </p>
+
+
+    <form method="post">
+
+        <div asp-validation-summary="All"
+             class="validation-summary"
+             role="alert"></div>
+
+
+        <div class="form-field">
+
+            <label asp-for="Input.Email">
+                Email Address
+            </label>
+
+            <div class="input-wrapper">
+
+                <i class="bi bi-envelope"></i>
+
+                <input asp-for="Input.Email"
+                       class="form-control"
+                       aria-required="true"
+                       autocomplete="email"
+                       placeholder="name@example.com" />
+
+            </div>
+
+            <span asp-validation-for="Input.Email"
+                  class="text-danger"></span>
+
+        </div>
+
+
+        <button type="submit"
+                class="btn btn-primary resend-button">
+
+            <i class="bi bi-send"></i>
+            Resend Confirmation
+
+        </button>
+
+    </form>
+
+
+    <a asp-page="./Login"
+       class="back-login">
+
+        <i class="bi bi-arrow-left"></i>
+        Back to Login
+
+    </a>
+
+</div>
+
+
+</div>
+
+<style>
+
+    .resend-page {
+        min-height: calc(100vh - 180px);
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: 40px 20px;
+    }
+
+
+    .resend-card {
+        width: 100%;
+        max-width: 450px;
+
+        padding: 42px 35px;
+
+        text-align: center;
+
+        background: var(--surface);
+
+        border: 1px solid var(--border);
+
+        border-radius: var(--radius-xl);
+
+        box-shadow: var(--shadow-lg);
+    }
+
+
+    .resend-icon {
+        width: 68px;
+        height: 68px;
+
+        margin: 0 auto 20px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 20px;
+
+        background: var(--green-100);
+
+        color: var(--green-700);
+
+        font-size: 28px;
+    }
+
+
+    .resend-eyebrow {
+        display: block;
+
+        margin-bottom: 8px;
+
+        color: var(--green-700);
+
+        font-size: 9px;
+        font-weight: 800;
+
+        letter-spacing: 1.5px;
+    }
+
+
+    .resend-card h1 {
+        margin: 0 0 10px;
+
+        color: var(--text-main);
+
+        font-size: 25px;
+        font-weight: 750;
+    }
+
+
+    .resend-card > p {
+        max-width: 320px;
+
+        margin: 0 auto 25px;
+
+        color: var(--text-muted);
+
+        font-size: 12px;
+
+        line-height: 1.7;
+    }
+
+
+    .form-field {
+        margin-bottom: 20px;
+
+        text-align: left;
+    }
+
+
+    .form-field label {
+        display: block;
+
+        margin-bottom: 8px;
+
+        color: var(--text-main);
+
+        font-size: 11px;
+        font-weight: 650;
+    }
+
+
+    .input-wrapper {
+        position: relative;
+    }
+
+
+    .input-wrapper > i {
+        position: absolute;
+
+        left: 14px;
+        top: 50%;
+
+        transform: translateY(-50%);
+
+        color: var(--text-muted);
+
+        font-size: 14px;
+
+        pointer-events: none;
+
+        z-index: 2;
+    }
+
+
+    .input-wrapper .form-control {
+        width: 100%;
+
+        min-height: 46px;
+
+        padding: 12px 14px 12px 40px;
+
+        border: 1px solid var(--border);
+
+        border-radius: 12px;
+
+        background: var(--surface-soft);
+
+        color: var(--text-main);
+
+        font-family: inherit;
+
+        font-size: 12px;
+
+        transition: var(--transition);
+    }
+
+
+    .input-wrapper .form-control::placeholder {
+        color: #9aaba4;
+    }
+
+
+    .input-wrapper .form-control:focus {
+        border-color: var(--green-400);
+
+        background: var(--surface);
+
+        box-shadow:
+            0 0 0 4px rgba(32, 184, 122, 0.10);
+
+        outline: none;
+    }
+
+
+    .input-wrapper:focus-within > i {
+        color: var(--green-600);
+    }
+
+
+    .text-danger {
+        display: block;
+
+        margin-top: 5px;
+
+        color: #c45145;
+
+        font-size: 10px;
+    }
+
+
+    .validation-summary {
+        margin-bottom: 18px;
+
+        padding: 12px 14px;
+
+        border-radius: 12px;
+
+        background: #fff1ef;
+
+        color: #a64c3c;
+
+        font-size: 10px;
+
+        text-align: left;
+    }
+
+
+    .validation-summary:empty,
+    .validation-summary.validation-summary-valid {
+        display: none;
+    }
+
+
+    .resend-button {
+        width: 100%;
+
+        min-height: 46px;
+
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        gap: 8px;
+
+        border-radius: 12px;
+
+        font-size: 11px;
+        font-weight: 700;
+    }
+
+
+    .back-login {
+        display: inline-flex;
+
+        align-items: center;
+
+        gap: 7px;
+
+        margin-top: 22px;
+
+        color: var(--text-muted);
+
+        font-size: 10px;
+        font-weight: 600;
+
+        text-decoration: none;
+
+        transition: var(--transition);
+    }
+
+
+    .back-login:hover {
+        color: var(--green-700);
+
+        gap: 9px;
+    }
+
+
+    @@media (max-width: 767px) {
+
+        .resend-page {
+            min-height: calc(100vh - 120px);
+
+            padding: 25px 15px;
+        }
+
+
+        .resend-card {
+            padding: 35px 25px;
+        }
+
+
+        .resend-card h1 {
+            font-size: 23px;
+        }
+
+    }
+
+</style>
+
+@section Scripts { <partial name="_ValidationScriptsPartial" />
+}

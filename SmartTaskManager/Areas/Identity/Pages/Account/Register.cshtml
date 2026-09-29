@@ -1,0 +1,613 @@
+@page
+@model RegisterModel
+
+@{
+ViewData["Title"] = "Register";
+}
+
+<div class="register-page">
+
+<div class="register-card">
+
+    <div class="register-brand">
+
+        <div class="register-logo">
+            <i class="bi bi-check2-square"></i>
+        </div>
+
+        <div>
+            <strong>SmartTask</strong>
+            <span>Manager</span>
+        </div>
+
+    </div>
+
+
+    <div class="register-heading">
+
+        <span class="register-eyebrow">
+            GET STARTED
+        </span>
+
+        <h1>Create your account</h1>
+
+        <p>
+            Set up your workspace and start managing your tasks.
+        </p>
+
+    </div>
+
+
+    <form id="registerForm"
+          asp-route-returnUrl="@Model.ReturnUrl"
+          method="post">
+
+        <div asp-validation-summary="ModelOnly"
+             class="validation-summary"
+             role="alert"></div>
+
+
+        <div class="form-field">
+
+            <label asp-for="Input.Email">
+                Email Address
+            </label>
+
+            <div class="input-wrapper">
+
+                <i class="bi bi-envelope"></i>
+
+                <input asp-for="Input.Email"
+                       class="form-control"
+                       autocomplete="username"
+                       aria-required="true"
+                       placeholder="name@example.com" />
+
+            </div>
+
+            <span asp-validation-for="Input.Email"
+                  class="text-danger"></span>
+
+        </div>
+
+
+        <div class="form-field">
+
+            <label asp-for="Input.Password">
+                Password
+            </label>
+
+            <div class="input-wrapper">
+
+                <i class="bi bi-lock"></i>
+
+                <input asp-for="Input.Password"
+                       class="form-control"
+                       autocomplete="new-password"
+                       aria-required="true"
+                       placeholder="Create a password" />
+
+            </div>
+
+            <span asp-validation-for="Input.Password"
+                  class="text-danger"></span>
+
+        </div>
+
+
+        <div class="form-field">
+
+            <label asp-for="Input.ConfirmPassword">
+                Confirm Password
+            </label>
+
+            <div class="input-wrapper">
+
+                <i class="bi bi-shield-check"></i>
+
+                <input asp-for="Input.ConfirmPassword"
+                       class="form-control"
+                       autocomplete="new-password"
+                       aria-required="true"
+                       placeholder="Confirm your password" />
+
+            </div>
+
+            <span asp-validation-for="Input.ConfirmPassword"
+                  class="text-danger"></span>
+
+        </div>
+
+
+        <button id="registerSubmit"
+                type="submit"
+                class="btn btn-primary register-button">
+
+            <span>Create Account</span>
+
+            <i class="bi bi-arrow-right"></i>
+
+        </button>
+
+
+        <div class="login-link">
+
+            <span>Already have an account?</span>
+
+            <a asp-page="./Login"
+               asp-route-returnUrl="@Model.ReturnUrl">
+
+                Sign in
+
+            </a>
+
+        </div>
+
+    </form>
+
+
+    @if ((Model.ExternalLogins?.Count ?? 0) > 0)
+    {
+        <div class="divider">
+
+            <span>OR CONTINUE WITH</span>
+
+        </div>
+
+
+        <form id="external-account"
+              asp-page="./ExternalLogin"
+              asp-route-returnUrl="@Model.ReturnUrl"
+              method="post">
+
+            <div class="external-buttons">
+
+                @foreach (var provider in Model.ExternalLogins!)
+                {
+                    <button type="submit"
+                            class="external-button"
+                            name="provider"
+                            value="@provider.Name"
+                            title="Register using your @provider.DisplayName account">
+
+                        <i class="bi bi-box-arrow-in-right"></i>
+
+                        <span>
+                            Continue with @provider.DisplayName
+                        </span>
+
+                    </button>
+                }
+
+            </div>
+
+        </form>
+    }
+
+</div>
+
+
+</div>
+
+<style>
+
+    .register-page {
+        min-height: calc(100vh - 180px);
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: 35px 20px;
+    }
+
+
+    .register-card {
+        width: 100%;
+        max-width: 480px;
+
+        padding: 38px 40px;
+
+        background: var(--surface);
+
+        border: 1px solid var(--border);
+
+        border-radius: var(--radius-xl);
+
+        box-shadow: var(--shadow-lg);
+    }
+
+
+    .register-brand {
+        display: flex;
+        align-items: center;
+
+        gap: 11px;
+
+        margin-bottom: 30px;
+    }
+
+
+    .register-logo {
+        width: 40px;
+        height: 40px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 12px;
+
+        background: var(--green-700);
+
+        color: white;
+
+        font-size: 19px;
+
+        box-shadow:
+            0 7px 18px rgba(11, 138, 91, 0.18);
+    }
+
+
+    .register-brand strong {
+        display: block;
+
+        color: var(--text-main);
+
+        font-size: 13px;
+        font-weight: 800;
+
+        line-height: 1.1;
+    }
+
+
+    .register-brand span {
+        display: block;
+
+        color: var(--green-600);
+
+        font-size: 9px;
+        font-weight: 600;
+
+        letter-spacing: 0.4px;
+    }
+
+
+    .register-heading {
+        margin-bottom: 26px;
+    }
+
+
+    .register-eyebrow {
+        display: block;
+
+        margin-bottom: 7px;
+
+        color: var(--green-700);
+
+        font-size: 9px;
+        font-weight: 800;
+
+        letter-spacing: 1.5px;
+    }
+
+
+    .register-heading h1 {
+        margin: 0 0 9px;
+
+        color: var(--text-main);
+
+        font-size: 25px;
+        font-weight: 750;
+
+        line-height: 1.25;
+    }
+
+
+    .register-heading p {
+        margin: 0;
+
+        color: var(--text-muted);
+
+        font-size: 11px;
+
+        line-height: 1.6;
+    }
+
+
+    .form-field {
+        margin-bottom: 18px;
+    }
+
+
+    .form-field label {
+        display: block;
+
+        margin-bottom: 8px;
+
+        color: var(--text-main);
+
+        font-size: 11px;
+        font-weight: 650;
+    }
+
+
+    .input-wrapper {
+        position: relative;
+    }
+
+
+    .input-wrapper > i {
+        position: absolute;
+
+        left: 14px;
+        top: 50%;
+
+        transform: translateY(-50%);
+
+        color: var(--text-muted);
+
+        font-size: 14px;
+
+        pointer-events: none;
+
+        z-index: 2;
+    }
+
+
+    .input-wrapper .form-control {
+        width: 100%;
+
+        min-height: 45px;
+
+        padding: 11px 14px 11px 40px;
+
+        border: 1px solid var(--border);
+
+        border-radius: 12px;
+
+        background: var(--surface-soft);
+
+        color: var(--text-main);
+
+        font-family: inherit;
+
+        font-size: 12px;
+
+        transition: var(--transition);
+    }
+
+
+    .input-wrapper .form-control::placeholder {
+        color: #9aaba4;
+    }
+
+
+    .input-wrapper .form-control:focus {
+        border-color: var(--green-400);
+
+        background: var(--surface);
+
+        box-shadow:
+            0 0 0 4px rgba(32, 184, 122, 0.10);
+
+        outline: none;
+    }
+
+
+    .input-wrapper:focus-within > i {
+        color: var(--green-600);
+    }
+
+
+    .text-danger {
+        display: block;
+
+        margin-top: 5px;
+
+        color: #c45145;
+
+        font-size: 10px;
+    }
+
+
+    .validation-summary {
+        margin-bottom: 18px;
+
+        padding: 12px 14px;
+
+        border-radius: 12px;
+
+        background: #fff1ef;
+
+        color: #a64c3c;
+
+        font-size: 10px;
+
+        text-align: left;
+    }
+
+
+    .validation-summary:empty,
+    .validation-summary.validation-summary-valid {
+        display: none;
+    }
+
+
+    .register-button {
+        width: 100%;
+
+        min-height: 45px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        gap: 9px;
+
+        margin-top: 4px;
+
+        border-radius: 12px;
+
+        font-size: 11px;
+        font-weight: 700;
+
+        transition: var(--transition);
+    }
+
+
+    .register-button i {
+        transition: var(--transition);
+    }
+
+
+    .register-button:hover i {
+        transform: translateX(3px);
+    }
+
+
+    .login-link {
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        gap: 5px;
+
+        margin-top: 19px;
+
+        color: var(--text-muted);
+
+        font-size: 10px;
+    }
+
+
+    .login-link a {
+        color: var(--green-700);
+
+        font-weight: 700;
+
+        text-decoration: none;
+    }
+
+
+    .login-link a:hover {
+        color: var(--green-900);
+    }
+
+
+    .divider {
+        position: relative;
+
+        display: flex;
+        align-items: center;
+
+        margin: 27px 0 18px;
+    }
+
+
+    .divider::before,
+    .divider::after {
+        content: "";
+
+        flex: 1;
+
+        height: 1px;
+
+        background: var(--border);
+    }
+
+
+    .divider span {
+        padding: 0 12px;
+
+        color: var(--text-muted);
+
+        font-size: 8px;
+        font-weight: 700;
+
+        letter-spacing: 1px;
+    }
+
+
+    .external-buttons {
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 9px;
+    }
+
+
+    .external-button {
+        width: 100%;
+
+        min-height: 43px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        gap: 8px;
+
+        border: 1px solid var(--border);
+
+        border-radius: 11px;
+
+        background: var(--surface-soft);
+
+        color: var(--text-main);
+
+        font-family: inherit;
+
+        font-size: 10px;
+        font-weight: 600;
+
+        cursor: pointer;
+
+        transition: var(--transition);
+    }
+
+
+    .external-button i {
+        color: var(--green-700);
+
+        font-size: 14px;
+    }
+
+
+    .external-button:hover {
+        border-color: var(--green-300);
+
+        background: var(--green-50);
+
+        transform: translateY(-1px);
+
+        box-shadow: var(--shadow-sm);
+    }
+
+
+    @@media (max-width: 767px) {
+
+        .register-page {
+            min-height: calc(100vh - 120px);
+
+            padding: 25px 15px;
+        }
+
+
+        .register-card {
+            padding: 32px 24px;
+        }
+
+
+        .register-heading h1 {
+            font-size: 23px;
+        }
+
+    }
+
+</style>
+
+@section Scripts { <partial name="_ValidationScriptsPartial" />
+}

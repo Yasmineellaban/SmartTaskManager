@@ -1,0 +1,351 @@
+@page
+@model ErrorModel
+
+@{
+ViewData["Title"] = "Error";
+}
+
+<div class="error-page">
+
+<div class="error-card">
+
+    <div class="error-icon">
+        <i class="bi bi-exclamation-triangle"></i>
+    </div>
+
+    <span class="error-eyebrow">
+        SOMETHING WENT WRONG
+    </span>
+
+    <h1>Unable to Complete Request</h1>
+
+    <p class="error-description">
+        An unexpected error occurred while processing your request.
+        Please try again or return to your workspace.
+    </p>
+
+
+    @if (Model.ShowRequestId)
+    {
+        <div class="request-id-card">
+
+            <i class="bi bi-fingerprint"></i>
+
+            <div>
+                <span>Request ID</span>
+
+                <code>@Model.RequestId</code>
+            </div>
+
+        </div>
+    }
+
+
+    <a asp-controller="Home"
+       asp-action="Index"
+       class="btn btn-primary error-button">
+
+        <i class="bi bi-house"></i>
+        Back to Dashboard
+
+    </a>
+
+
+    <div class="development-note">
+
+        <div class="development-header">
+
+            <i class="bi bi-code-slash"></i>
+
+            <strong>Development Mode</strong>
+
+        </div>
+
+        <p>
+            Switching to the
+            <strong>Development</strong>
+            environment displays more detailed information
+            about errors for local debugging.
+        </p>
+
+        <p>
+            The Development environment should not be enabled
+            in deployed applications because exception details
+            may expose sensitive information.
+        </p>
+
+        <p>
+            For local debugging, set the
+            <strong>ASPNETCORE_ENVIRONMENT</strong>
+            environment variable to
+            <strong>Development</strong>
+            and restart the application.
+        </p>
+
+    </div>
+
+</div>
+
+
+</div>
+
+<style>
+
+    .error-page {
+        min-height: calc(100vh - 180px);
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: 40px 20px;
+    }
+
+
+    .error-card {
+        width: 100%;
+        max-width: 520px;
+
+        padding: 42px 38px;
+
+        text-align: center;
+
+        background: var(--surface);
+
+        border: 1px solid var(--border);
+
+        border-radius: var(--radius-xl);
+
+        box-shadow: var(--shadow-lg);
+    }
+
+
+    .error-icon {
+        width: 68px;
+        height: 68px;
+
+        margin: 0 auto 20px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 20px;
+
+        background: #fff1ef;
+
+        color: #b65346;
+
+        font-size: 28px;
+    }
+
+
+    .error-eyebrow {
+        display: block;
+
+        margin-bottom: 8px;
+
+        color: #b65346;
+
+        font-size: 9px;
+        font-weight: 800;
+
+        letter-spacing: 1.5px;
+    }
+
+
+    .error-card h1 {
+        margin: 0 0 10px;
+
+        color: var(--text-main);
+
+        font-size: 25px;
+        font-weight: 750;
+    }
+
+
+    .error-description {
+        max-width: 360px;
+
+        margin: 0 auto 22px;
+
+        color: var(--text-muted);
+
+        font-size: 12px;
+
+        line-height: 1.7;
+    }
+
+
+    .request-id-card {
+        display: flex;
+
+        align-items: center;
+
+        gap: 11px;
+
+        margin-bottom: 20px;
+
+        padding: 13px 14px;
+
+        border: 1px solid var(--border);
+
+        border-radius: 12px;
+
+        background: var(--surface-soft);
+
+        text-align: left;
+    }
+
+
+    .request-id-card > i {
+        width: 34px;
+        height: 34px;
+
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        flex-shrink: 0;
+
+        border-radius: 10px;
+
+        background: var(--green-100);
+
+        color: var(--green-700);
+
+        font-size: 14px;
+    }
+
+
+    .request-id-card div {
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 3px;
+
+        min-width: 0;
+    }
+
+
+    .request-id-card span {
+        color: var(--text-muted);
+
+        font-size: 9px;
+        font-weight: 600;
+    }
+
+
+    .request-id-card code {
+        color: var(--text-main);
+
+        font-family: monospace;
+
+        font-size: 10px;
+
+        word-break: break-all;
+    }
+
+
+    .error-button {
+        display: inline-flex;
+
+        align-items: center;
+        justify-content: center;
+
+        gap: 8px;
+
+        min-width: 175px;
+
+        padding: 11px 19px;
+
+        border-radius: 11px;
+
+        font-size: 11px;
+        font-weight: 700;
+    }
+
+
+    .development-note {
+        margin-top: 25px;
+
+        padding: 16px;
+
+        border-radius: 14px;
+
+        background: #f7f9f8;
+
+        border: 1px solid var(--border);
+
+        text-align: left;
+    }
+
+
+    .development-header {
+        display: flex;
+
+        align-items: center;
+
+        gap: 8px;
+
+        margin-bottom: 10px;
+
+        color: var(--text-main);
+
+        font-size: 10px;
+    }
+
+
+    .development-header i {
+        color: var(--green-700);
+
+        font-size: 13px;
+    }
+
+
+    .development-note p {
+        margin: 0 0 9px;
+
+        color: var(--text-muted);
+
+        font-size: 9px;
+
+        line-height: 1.65;
+    }
+
+
+    .development-note p:last-child {
+        margin-bottom: 0;
+    }
+
+
+    .development-note strong {
+        color: var(--text-main);
+
+        font-weight: 700;
+    }
+
+
+    @@media (max-width: 767px) {
+
+        .error-page {
+            min-height: calc(100vh - 120px);
+
+            padding: 25px 15px;
+        }
+
+
+        .error-card {
+            padding: 35px 25px;
+        }
+
+
+        .error-card h1 {
+            font-size: 23px;
+        }
+
+    }
+
+</style>

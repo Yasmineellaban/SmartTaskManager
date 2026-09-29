@@ -1,0 +1,529 @@
+﻿@model SmartTaskManager.Models.TaskItem
+
+@{
+    ViewData["Title"] = "Delete Task";
+}
+
+<div class="delete-task-page">
+
+    <div class="delete-card">
+
+        <div class="delete-icon">
+            <i class="bi bi-trash3"></i>
+        </div>
+
+        <span class="delete-eyebrow">
+            TASK MANAGEMENT
+        </span>
+
+        <h2>
+            Delete Task?
+        </h2>
+
+        <p class="delete-message">
+            This action will permanently remove this task.
+            Make sure you want to continue before confirming.
+        </p>
+
+
+        <div class="task-preview">
+
+            <div class="preview-header">
+
+                <span class="preview-label">
+                    TASK TO DELETE
+                </span>
+
+                <span class="preview-id">
+                    #@Model.Id
+                </span>
+
+            </div>
+
+
+            <div class="preview-title">
+                @Model.Title
+            </div>
+
+
+            <div class="preview-details">
+
+                <div class="preview-item">
+
+                    <span class="preview-item-icon">
+                        <i class="bi bi-circle-half"></i>
+                    </span>
+
+                    <div>
+                        <span class="preview-item-label">
+                            Status
+                        </span>
+
+                        <strong>
+                            @Model.Status
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                <div class="preview-item">
+
+                    <span class="preview-item-icon">
+                        <i class="bi bi-flag"></i>
+                    </span>
+
+                    <div>
+                        <span class="preview-item-label">
+                            Priority
+                        </span>
+
+                        <strong>
+                            @Model.Priority
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                <div class="preview-item">
+
+                    <span class="preview-item-icon">
+                        <i class="bi bi-folder2-open"></i>
+                    </span>
+
+                    <div>
+                        <span class="preview-item-label">
+                            Category
+                        </span>
+
+                        <strong>
+                            @(Model.Category?.Name ?? "Uncategorized")
+                        </strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="delete-warning">
+
+            <i class="bi bi-exclamation-triangle"></i>
+
+            <span>
+                This task cannot be recovered after deletion.
+            </span>
+
+        </div>
+
+
+        <form asp-action="Delete"
+              method="post"
+              class="delete-form">
+
+            <input type="hidden"
+                   asp-for="Id" />
+
+
+            <button type="submit"
+                    class="delete-confirm-btn">
+
+                <i class="bi bi-trash3"></i>
+
+                Delete Task
+
+            </button>
+
+
+            <a asp-action="Details"
+               asp-route-id="@Model.Id"
+               class="cancel-delete-btn">
+
+                <i class="bi bi-arrow-left"></i>
+
+                Keep Task
+
+            </a>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<style>
+
+    .delete-task-page {
+        min-height: calc(100vh - 190px);
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: 20px 0;
+    }
+
+
+    .delete-card {
+        width: 100%;
+        max-width: 650px;
+
+        padding: 38px;
+
+        text-align: center;
+
+        border-radius: 26px;
+
+        background:
+            rgba(255, 255, 255, 0.94);
+
+        border:
+            1px solid rgba(12, 91, 62, 0.09);
+
+        box-shadow:
+            0 25px 70px rgba(5, 72, 48, 0.11);
+
+        backdrop-filter: blur(14px);
+    }
+
+
+    .delete-icon {
+        width: 62px;
+        height: 62px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        margin: 0 auto 18px;
+
+        border-radius: 19px;
+
+        background: #fff1ef;
+
+        color: #c45b4d;
+
+        font-size: 25px;
+
+        box-shadow:
+            0 8px 25px rgba(196, 91, 77, 0.10);
+    }
+
+
+    .delete-eyebrow {
+        display: block;
+
+        margin-bottom: 7px;
+
+        color: #b45a4d;
+
+        font-size: 9px;
+        font-weight: 800;
+
+        letter-spacing: 1.8px;
+    }
+
+
+    .delete-card h2 {
+        margin: 0 0 10px;
+
+        color: var(--green-950);
+
+        font-size: 30px;
+        font-weight: 800;
+
+        letter-spacing: -0.8px;
+    }
+
+
+    .delete-message {
+        max-width: 420px;
+
+        margin: 0 auto 25px;
+
+        color: var(--text-muted);
+
+        font-size: 12px;
+
+        line-height: 1.7;
+    }
+
+
+    /* ==============================
+       Task Preview
+    ============================== */
+
+    .task-preview {
+        padding: 20px;
+
+        text-align: left;
+
+        border-radius: 18px;
+
+        background:
+            var(--surface-soft);
+
+        border:
+            1px solid rgba(12, 91, 62, 0.08);
+    }
+
+
+    .preview-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        margin-bottom: 13px;
+    }
+
+
+    .preview-label {
+        color: var(--green-700);
+
+        font-size: 8px;
+        font-weight: 800;
+
+        letter-spacing: 1.5px;
+    }
+
+
+    .preview-id {
+        color: var(--text-muted);
+
+        font-size: 9px;
+        font-weight: 700;
+    }
+
+
+    .preview-title {
+        margin-bottom: 18px;
+
+        color: var(--green-950);
+
+        font-size: 18px;
+        font-weight: 750;
+
+        word-break: break-word;
+    }
+
+
+    .preview-details {
+        display: grid;
+
+        grid-template-columns:
+            repeat(3, 1fr);
+
+        gap: 10px;
+    }
+
+
+    .preview-item {
+        display: flex;
+        align-items: center;
+
+        gap: 9px;
+
+        padding: 11px;
+
+        border-radius: 12px;
+
+        background: white;
+
+        border:
+            1px solid rgba(12, 91, 62, 0.06);
+    }
+
+
+    .preview-item-icon {
+        width: 30px;
+        height: 30px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        flex-shrink: 0;
+
+        border-radius: 9px;
+
+        background: var(--green-100);
+
+        color: var(--green-700);
+
+        font-size: 12px;
+    }
+
+
+    .preview-item-label {
+        display: block;
+
+        margin-bottom: 2px;
+
+        color: var(--text-muted);
+
+        font-size: 8px;
+    }
+
+
+    .preview-item strong {
+        display: block;
+
+        overflow: hidden;
+
+        color: var(--text-main);
+
+        font-size: 10px;
+        font-weight: 750;
+
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+
+    /* ==============================
+       Warning
+    ============================== */
+
+    .delete-warning {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        gap: 8px;
+
+        margin: 18px 0;
+
+        padding: 11px 14px;
+
+        border-radius: 12px;
+
+        background: #fff8f6;
+
+        color: #a85a4d;
+
+        font-size: 10px;
+    }
+
+
+    .delete-warning i {
+        font-size: 13px;
+    }
+
+
+    /* ==============================
+       Buttons
+    ============================== */
+
+    .delete-form {
+        display: flex;
+        flex-direction: column;
+
+        gap: 9px;
+    }
+
+
+    .delete-confirm-btn,
+    .cancel-delete-btn {
+        width: 100%;
+        height: 46px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        gap: 8px;
+
+        border-radius: 12px;
+
+        font-family: inherit;
+
+        font-size: 11px;
+        font-weight: 750;
+
+        text-decoration: none;
+
+        transition: var(--transition);
+    }
+
+
+    .delete-confirm-btn {
+        border: none;
+
+        background:
+            linear-gradient(
+                135deg,
+                #bd5548,
+                #a9463b
+            );
+
+        color: white;
+
+        cursor: pointer;
+
+        box-shadow:
+            0 8px 20px rgba(169, 70, 59, 0.16);
+    }
+
+
+    .delete-confirm-btn:hover {
+        transform: translateY(-2px);
+
+        box-shadow:
+            0 12px 25px rgba(169, 70, 59, 0.23);
+    }
+
+
+    .cancel-delete-btn {
+        background: var(--green-50);
+
+        color: var(--green-700);
+
+        border:
+            1px solid rgba(12, 91, 62, 0.08);
+    }
+
+
+    .cancel-delete-btn:hover {
+        background: var(--green-100);
+
+        color: var(--green-900);
+    }
+
+
+    @@media (max-width: 767px) {
+
+        .delete-task-page {
+            min-height: auto;
+
+            padding: 10px 0;
+        }
+
+
+        .delete-card {
+            padding: 25px 20px;
+
+            border-radius: 20px;
+        }
+
+
+        .delete-card h2 {
+            font-size: 27px;
+        }
+
+
+        .preview-details {
+            grid-template-columns: 1fr;
+        }
+
+
+        .preview-item {
+            width: 100%;
+        }
+
+    }
+
+</style>

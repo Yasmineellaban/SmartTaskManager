@@ -1,0 +1,425 @@
+@page
+@model LoginWithRecoveryCodeModel
+
+@{
+ViewData["Title"] = "Recovery Code Verification";
+}
+
+<div class="recovery-page">
+
+
+<div class="recovery-card">
+
+    <div class="recovery-main-icon">
+        <i class="bi bi-key"></i>
+    </div>
+
+    <span class="recovery-eyebrow">
+        ACCOUNT RECOVERY
+    </span>
+
+    <h1>Recovery Code</h1>
+
+    <p class="recovery-description">
+        You have requested to log in with a recovery code.
+        Enter one of your saved recovery codes below to continue.
+    </p>
+
+
+    <div class="recovery-warning">
+
+        <i class="bi bi-info-circle"></i>
+
+        <span>
+            This login will not be remembered until you provide
+            an authenticator app code or disable 2FA and log in again.
+        </span>
+
+    </div>
+
+
+    <form method="post">
+
+        <div asp-validation-summary="ModelOnly"
+             class="validation-summary"
+             role="alert"></div>
+
+
+        <div class="form-field">
+
+            <label asp-for="Input.RecoveryCode">
+                Recovery Code
+            </label>
+
+            <div class="code-input-wrapper">
+
+                <i class="bi bi-shield-check"></i>
+
+                <input asp-for="Input.RecoveryCode"
+                       class="form-control"
+                       autocomplete="off"
+                       placeholder="Enter your recovery code" />
+
+            </div>
+
+            <span asp-validation-for="Input.RecoveryCode"
+                  class="text-danger"></span>
+
+        </div>
+
+
+        <button type="submit"
+                class="btn btn-primary recovery-button">
+
+            <i class="bi bi-box-arrow-in-right"></i>
+
+            Log In
+
+        </button>
+
+    </form>
+
+
+    <div class="recovery-tip">
+
+        <i class="bi bi-shield-check"></i>
+
+        <span>
+            Recovery codes are one-time use codes.
+            Keep your remaining codes somewhere safe.
+        </span>
+
+    </div>
+
+</div>
+
+</div>
+
+<style>
+
+    .recovery-page {
+        min-height: calc(100vh - 180px);
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: 40px 20px;
+    }
+
+
+    .recovery-card {
+        width: 100%;
+        max-width: 470px;
+
+        padding: 42px 38px;
+
+        background: var(--surface);
+
+        border: 1px solid var(--border);
+
+        border-radius: var(--radius-xl);
+
+        box-shadow: var(--shadow-lg);
+    }
+
+
+    .recovery-main-icon {
+        width: 68px;
+        height: 68px;
+
+        margin: 0 auto 20px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 20px;
+
+        background: var(--green-100);
+
+        color: var(--green-700);
+
+        font-size: 28px;
+    }
+
+
+    .recovery-eyebrow {
+        display: block;
+
+        margin-bottom: 8px;
+
+        text-align: center;
+
+        color: var(--green-700);
+
+        font-size: 9px;
+        font-weight: 800;
+
+        letter-spacing: 1.5px;
+    }
+
+
+    .recovery-card h1 {
+        margin: 0 0 10px;
+
+        text-align: center;
+
+        color: var(--text-main);
+
+        font-size: 25px;
+        font-weight: 750;
+    }
+
+
+    .recovery-description {
+        max-width: 350px;
+
+        margin: 0 auto 20px;
+
+        text-align: center;
+
+        color: var(--text-muted);
+
+        font-size: 11px;
+
+        line-height: 1.7;
+    }
+
+
+    .recovery-warning {
+        display: flex;
+
+        align-items: flex-start;
+
+        gap: 10px;
+
+        margin-bottom: 23px;
+
+        padding: 13px 14px;
+
+        border-radius: 12px;
+
+        background: var(--green-50);
+
+        color: var(--text-muted);
+
+        font-size: 10px;
+
+        line-height: 1.6;
+
+        text-align: left;
+    }
+
+
+    .recovery-warning i {
+        margin-top: 1px;
+
+        color: var(--green-600);
+
+        font-size: 14px;
+
+        flex-shrink: 0;
+    }
+
+
+    .form-field {
+        margin-bottom: 20px;
+    }
+
+
+    .form-field label {
+        display: block;
+
+        margin-bottom: 8px;
+
+        color: var(--text-main);
+
+        font-size: 11px;
+        font-weight: 650;
+    }
+
+
+    .code-input-wrapper {
+        position: relative;
+    }
+
+
+    .code-input-wrapper > i {
+        position: absolute;
+
+        left: 14px;
+        top: 50%;
+
+        transform: translateY(-50%);
+
+        color: var(--text-muted);
+
+        font-size: 14px;
+
+        pointer-events: none;
+
+        z-index: 2;
+    }
+
+
+    .code-input-wrapper .form-control {
+        width: 100%;
+
+        min-height: 48px;
+
+        padding: 12px 14px 12px 41px;
+
+        border: 1px solid var(--border);
+
+        border-radius: 12px;
+
+        background: var(--surface-soft);
+
+        color: var(--text-main);
+
+        font-family: inherit;
+
+        font-size: 12px;
+
+        letter-spacing: 0.5px;
+
+        transition: var(--transition);
+    }
+
+
+    .code-input-wrapper .form-control::placeholder {
+        color: #9aaba4;
+
+        letter-spacing: 0;
+    }
+
+
+    .code-input-wrapper .form-control:focus {
+        border-color: var(--green-400);
+
+        background: var(--surface);
+
+        box-shadow:
+            0 0 0 4px rgba(32, 184, 122, 0.10);
+
+        outline: none;
+    }
+
+
+    .code-input-wrapper:focus-within > i {
+        color: var(--green-600);
+    }
+
+
+    .text-danger {
+        display: block;
+
+        margin-top: 5px;
+
+        color: #c45145;
+
+        font-size: 10px;
+    }
+
+
+    .validation-summary {
+        margin-bottom: 18px;
+
+        padding: 12px 14px;
+
+        border-radius: 12px;
+
+        background: #fff1ef;
+
+        color: #a64c3c;
+
+        font-size: 10px;
+
+        text-align: left;
+    }
+
+
+    .validation-summary:empty,
+    .validation-summary.validation-summary-valid {
+        display: none;
+    }
+
+
+    .recovery-button {
+        width: 100%;
+
+        min-height: 46px;
+
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        gap: 8px;
+
+        border-radius: 12px;
+
+        font-size: 11px;
+        font-weight: 700;
+    }
+
+
+    .recovery-tip {
+        display: flex;
+
+        align-items: flex-start;
+
+        gap: 9px;
+
+        margin-top: 22px;
+
+        padding-top: 18px;
+
+        border-top: 1px solid var(--border);
+
+        color: var(--text-muted);
+
+        font-size: 9px;
+
+        line-height: 1.6;
+
+        text-align: left;
+    }
+
+
+    .recovery-tip i {
+        margin-top: 1px;
+
+        color: var(--green-600);
+
+        font-size: 13px;
+
+        flex-shrink: 0;
+    }
+
+
+    @@media (max-width: 767px) {
+
+        .recovery-page {
+            min-height: calc(100vh - 120px);
+
+            padding: 25px 15px;
+        }
+
+
+        .recovery-card {
+            padding: 35px 25px;
+        }
+
+
+        .recovery-card h1 {
+            font-size: 23px;
+        }
+
+    }
+
+</style>
+
+@section Scripts { <partial name="_ValidationScriptsPartial" />
+}

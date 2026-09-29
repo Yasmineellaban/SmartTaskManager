@@ -1,0 +1,345 @@
+﻿@model SmartTaskManager.Models.Category
+
+@{
+    ViewData["Title"] = "Create Category";
+}
+
+<div class="page-header">
+    <div>
+        <span class="page-eyebrow">ORGANIZATION</span>
+        <h1 class="page-title">Create Category</h1>
+        <p class="page-subtitle">
+            Organize your tasks into clear and meaningful groups.
+        </p>
+    </div>
+
+    <a asp-action="Index" class="btn btn-light page-back-btn">
+        <i class="bi bi-arrow-left"></i>
+        Back to Categories
+    </a>
+</div>
+
+<div class="category-create-layout">
+
+    <div class="premium-card category-form-card">
+
+        <div class="card-heading">
+            <div class="card-icon">
+                <i class="bi bi-folder-plus"></i>
+            </div>
+
+            <div>
+                <h2>Category Information</h2>
+                <p>Give your category a name and a short description.</p>
+            </div>
+        </div>
+
+        <form asp-action="Create" method="post">
+
+            <div asp-validation-summary="All"
+                 class="validation-summary"></div>
+
+            <div class="form-group">
+                <label asp-for="Name">Category Name</label>
+
+                <div class="input-wrapper">
+                    <i class="bi bi-folder"></i>
+                    <input asp-for="Name"
+                           class="form-control"
+                           placeholder="e.g. Work, Study, Personal" />
+                </div>
+
+                <span asp-validation-for="Name"
+                      class="validation-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Description">Description</label>
+
+                <textarea asp-for="Description"
+                          class="form-control category-description"
+                          rows="5"
+                          placeholder="Describe what this category is used for..."></textarea>
+
+                <span asp-validation-for="Description"
+                      class="validation-message"></span>
+            </div>
+
+            <div class="form-actions">
+                <a asp-action="Index" class="btn btn-light">
+                    Cancel
+                </a>
+
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-plus-lg"></i>
+                    Create Category
+                </button>
+            </div>
+
+        </form>
+    </div>
+
+    <div class="premium-card category-tip-card">
+
+        <div class="tip-icon">
+            <i class="bi bi-lightbulb"></i>
+        </div>
+
+        <span class="tip-label">SMART ORGANIZATION</span>
+
+        <h3>Keep your workspace organized.</h3>
+
+        <p>
+            Categories make it easier to group related tasks,
+            stay focused, and quickly find what matters.
+        </p>
+
+        <div class="tip-list">
+
+            <div class="tip-item">
+                <i class="bi bi-check-circle-fill"></i>
+                <span>Use clear and simple names.</span>
+            </div>
+
+            <div class="tip-item">
+                <i class="bi bi-check-circle-fill"></i>
+                <span>Group similar tasks together.</span>
+            </div>
+
+            <div class="tip-item">
+                <i class="bi bi-check-circle-fill"></i>
+                <span>Keep categories meaningful.</span>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<style>
+    .category-create-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1.5fr) minmax(280px, 0.8fr);
+        gap: 24px;
+        align-items: start;
+    }
+
+    .premium-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-xl);
+        box-shadow: var(--shadow-md);
+    }
+
+    .category-form-card {
+        padding: 30px;
+    }
+
+    .card-heading {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 30px;
+    }
+
+    .card-icon,
+    .tip-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--green-100);
+        color: var(--green-700);
+        font-size: 21px;
+        flex-shrink: 0;
+    }
+
+    .card-heading h2 {
+        margin: 0 0 5px;
+        font-size: 19px;
+        font-weight: 700;
+        color: var(--text-main);
+    }
+
+    .card-heading p {
+        margin: 0;
+        color: var(--text-muted);
+        font-size: 13px;
+    }
+
+    .form-group {
+        margin-bottom: 22px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text-main);
+    }
+
+    .input-wrapper {
+        position: relative;
+    }
+
+    .input-wrapper > i {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--green-600);
+        z-index: 2;
+    }
+
+    .input-wrapper .form-control {
+        padding-left: 42px;
+    }
+
+    .form-control {
+        width: 100%;
+        min-height: 48px;
+        border: 1px solid var(--border);
+        border-radius: 13px;
+        background: var(--surface-soft);
+        color: var(--text-main);
+        font-size: 13px;
+        padding: 12px 14px;
+        transition: var(--transition);
+    }
+
+    .form-control:focus {
+        border-color: var(--green-400);
+        background: var(--surface);
+        box-shadow: 0 0 0 4px rgba(32, 184, 122, 0.10);
+        outline: none;
+    }
+
+    .category-description {
+        resize: vertical;
+        min-height: 130px;
+    }
+
+    .validation-message {
+        display: block;
+        margin-top: 6px;
+        color: #c45145;
+        font-size: 11px;
+    }
+
+    .validation-summary {
+        margin-bottom: 18px;
+        padding: 12px 14px;
+        border-radius: 12px;
+        background: #fff1ef;
+        color: #a64c3c;
+        font-size: 11px;
+    }
+
+    .validation-summary:empty,
+    .validation-summary.validation-summary-valid {
+        display: none;
+    }
+
+    .form-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        margin-top: 28px;
+        padding-top: 22px;
+        border-top: 1px solid var(--border);
+    }
+
+    .category-tip-card {
+        padding: 28px;
+        background: linear-gradient(
+            145deg,
+            #ffffff 0%,
+            var(--green-50) 100%
+        );
+    }
+
+    .category-tip-card .tip-icon {
+        margin-bottom: 20px;
+    }
+
+    .tip-label {
+        display: block;
+        margin-bottom: 10px;
+        color: var(--green-700);
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 1.5px;
+    }
+
+    .category-tip-card h3 {
+        margin: 0 0 12px;
+        color: var(--text-main);
+        font-size: 21px;
+        line-height: 1.35;
+    }
+
+    .category-tip-card > p {
+        margin: 0 0 22px;
+        color: var(--text-muted);
+        font-size: 13px;
+        line-height: 1.7;
+    }
+
+    .tip-list {
+        display: flex;
+        flex-direction: column;
+        gap: 13px;
+        padding-top: 20px;
+        border-top: 1px solid var(--border);
+    }
+
+    .tip-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--text-main);
+        font-size: 12px;
+    }
+
+    .tip-item i {
+        color: var(--green-600);
+        font-size: 15px;
+    }
+
+    .page-back-btn {
+        white-space: nowrap;
+    }
+
+    @@media (max-width: 991px) {
+        .category-create-layout {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @@media (max-width: 767px) {
+        .category-form-card,
+        .category-tip-card {
+            padding: 22px;
+        }
+
+        .form-actions {
+            flex-direction: column-reverse;
+        }
+
+        .form-actions .btn {
+            width: 100%;
+        }
+
+        .page-back-btn {
+            display: none;
+        }
+    }
+</style>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
